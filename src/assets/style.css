@@ -1,0 +1,214 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+ul.navmenu {
+    display: block;
+    width: 100%;
+    margin: 0px auto;
+    padding: 0px;
+}
+
+ul.navmenu>li {
+    display: inline-block;
+    margin: 0px auto;
+}
+
+ul.navmenu li>.carret {
+    display: inline;
+    cursor: pointer;
+    font-weight: bold;
+    width: 10px;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+}
+
+ul.navmenu>li>.carret {
+    left: 5px;
+}
+
+ul.navmenu li {
+    position: relative;
+}
+
+ul.navmenu li a {
+    display: block;
+    padding: 10px 20px;
+}
+
+ul.navmenu ul {
+    display: block;
+    position: absolute;
+    visibility: hidden;
+    width: 100%;
+    min-width: 150px;
+    padding: 0;
+    margin: 0 auto;
+    left: 0;
+    background: #EEE;
+    border-top: 1px solid;
+    z-index: 1;
+}
+
+ul.navmenu ul.open {
+    visibility: visible;
+}
+
+ul.navmenu ul ul {
+    left: 100%;
+    top: -1px;
+}
+
+ul.navmenu ul li {
+    display: block;
+    border: 1px solid #990;
+    border-top: none;
+}
+
+.entry-content:after {
+    clear: both;
+    display: block;
+    content: " ";
+    width: 100%;
+}
+
+.entry-content figure.image {
+    border: 1px solid #CCC;
+    position: relative;
+}
+
+.entry-content figure.image-style-align-right {
+    max-width: 50%;
+    float: right;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
+.entry-content figure.image-style-align-left {
+    max-width: 50%;
+    float: left;
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+.entry-content figure.image>img {
+    max-width: 100%;
+    display: block;
+    margin: 0px auto;
+}
+
+
+/**
+ * Comment List
+ */
+
+.comment-list .comment {
+    border: 1px solid #CCC;
+    padding: 15px 15px 0px;
+    margin-bottom: 15px;
+    background-color: #EEE;
+}
+
+.comment-wrapper>.comment-header {
+    margin-bottom: 15px;
+}
+
+.comment-wrapper>.comment-header h4 {
+    margin: 0px auto 5px;
+}
+
+.comment-wrapper>.comment-body {
+    margin-bottom: 15px;
+}
+
+
+/**
+ * Comment Form
+ */
+
+.comment-form {
+    border: 1px solid #CCC;
+    padding: 15px 15px 0px;
+    margin-bottom: 15px;
+    background-color: #EEE;
+}
+
+
+/**
+ * PROFILE
+ */
+
+#profile {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}
+
+#profile .open-handler {
+    cursor: pointer;
+    background: #CCC;
+    font-size: 20px;
+    padding: 10px;
+    display: flex;
+    border-radius: 100%;
+    color: #FFF;
+    border: 3px solid #000;
+}
+
+#profile #profile-box {
+    border: 5px solid #CCC;
+    padding: 10px;
+    max-width: 200px;
+    position: relative;
+    background: #EEE;
+}
+
+#profile #profile-box img {
+    max-width: 100%;
+}
+
+#profile #profile-box .close-handler {
+    position: absolute;
+    left: -30px;
+    top: -5px;
+    background: #CCC;
+    color: #fff;
+    font-size: 20px;
+    padding: 5px;
+    display: flex;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    cursor: pointer;
+}
+
+/**
+ * WIDGET
+ */
+
+.widget {
+	box-sizing: border-box;
+	border: 1px solid #CCC;
+	margin-bottom: 15px;
+}
+.widget-title {
+	padding: 10px 15px;
+	border-bottom: 1px solid #CCC;
+	display: block;
+	background: #EEE;
+}
+.widget-body {
+	padding: 10px 15px;
+}
+.widget-body > * {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+.widget-body .carret {
+	display: none;
+}

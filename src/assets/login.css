@@ -1,0 +1,42 @@
+.login-page-container {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    background: #eee;
+}
+
+.login-page {
+    max-width: 400px;
+}
+
+.login-page * {
+    border-radius: 0px !important;
+}
+
+.login-page h1 {
+    text-align: center;
+    margin: 0px auto 15px;
+    padding: 0px;
+}
+
+.login-page h1 a {
+    text-decoration: none;
+    font-family: 'times new romance';
+    font-weight: bolder;
+    color: #555666;
+}
+
+.login-page-inner {
+    padding: 30px;
+    border: 1px solid #999;
+    border-bottom-width: 3px;
+    border-right-width: 5px;
+    border-top-color: #CCC;
+    border-left-color: #CCC;
+    background: #fff;
+    border-radius: 10px !important;
+}
