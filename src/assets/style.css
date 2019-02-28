@@ -67,6 +67,23 @@ ul.navmenu ul li {
     border-top: none;
 }
 
+.content-wrapper {
+    margin-bottom: 30px;
+}
+
+.content-wrapper:before,
+.content-wrapper:after {
+    clear: both;
+    display: block;
+    content: " ";
+    width: 100%;
+}
+
+.entry-header .posted {
+    font-size: 10pt;
+    margin-bottom: 10px;
+}
+
 .entry-content:after {
     clear: both;
     display: block;

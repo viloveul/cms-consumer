@@ -32,7 +32,7 @@ const routes = [
     component: Blog
   },
   {
-    path: '/:type/:slug',
+    path: '/:type/:slug.html',
     component: Archive
   },
   {

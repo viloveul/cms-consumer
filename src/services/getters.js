@@ -38,13 +38,5 @@ export default {
     } else {
       return []
     }
-  },
-  isFormatPost: (context) => (post) => {
-    for (let i = 0; i < context.options.contents.posts.length; i++) {
-      if (context.options.contents.posts[i].name === post.type && context.options.contents.posts[i].format === 'post') {
-        return true
-      }
-    }
-    return false
   }
 }

@@ -128,23 +128,33 @@ export default {
     return res.data.data.option
   },
   fetchBlogPosts: async (context, payload) => {
-    let res = await http.get('/blog/index', payload.params)
+    let res = await http.get('/blog/index', {
+      params: payload.params
+    })
     return res.data
   },
   fetchArchivePosts: async (context, payload) => {
-    let res = await http.get('/blog/archive/' + payload.name, payload.params || {})
+    let res = await http.get('/blog/archive/' + payload.name, {
+      params: payload.params || {}
+    })
     return res.data
   },
   fetchAuthorPosts: async (context, payload) => {
-    let res = await http.get('/blog/author/' + payload.name, payload.params || {})
+    let res = await http.get('/blog/author/' + payload.name, {
+      params: payload.params || {}
+    })
     return res.data
   },
   fetchPostDetail: async (context, payload) => {
-    let res = await http.get('/blog/detail/' + payload.slug, payload.params || {})
+    let res = await http.get('/blog/detail/' + payload.slug, {
+      params: payload.params || {}
+    })
     return res.data
   },
   fetchPostComments: async (context, payload) => {
-    let res = await http.get('/blog/comments/' + payload.id, payload.params || {})
+    let res = await http.get('/blog/comments/' + payload.id, {
+      params: payload.params || {}
+    })
     return res.data
   },
   sendComment: async (context, payload) => {
