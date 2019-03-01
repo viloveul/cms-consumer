@@ -6,8 +6,9 @@ body {
 ul.navmenu {
     display: block;
     width: 100%;
-    margin: 0px auto;
+    margin: 0px auto 30px;
     padding: 0px;
+    border-bottom: 1px solid #CCC;
 }
 
 ul.navmenu>li {
@@ -79,6 +80,9 @@ ul.navmenu ul li {
     width: 100%;
 }
 
+.entry-header .entry-title {
+    margin-top: 0px;
+}
 .entry-header .posted {
     font-size: 10pt;
     margin-bottom: 10px;
@@ -161,8 +165,10 @@ ul.navmenu ul li {
 
 #profile {
     position: fixed;
-    top: 10px;
-    right: 10px;
+    top: 0;
+    right: 0;
+    max-height: 100vh;
+    overflow-y: auto;
 }
 
 #profile .open-handler {
@@ -170,6 +176,7 @@ ul.navmenu ul li {
     background: #CCC;
     font-size: 20px;
     padding: 10px;
+    margin: 10px;
     display: flex;
     border-radius: 100%;
     color: #FFF;
@@ -179,6 +186,7 @@ ul.navmenu ul li {
 #profile #profile-box {
     border: 5px solid #CCC;
     padding: 10px;
+    margin: 10px 10px 10px 50px;
     max-width: 200px;
     position: relative;
     background: #EEE;
