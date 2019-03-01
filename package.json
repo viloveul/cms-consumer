@@ -17,6 +17,8 @@
     "axios": "0.*",
     "bootstrap": "3.*",
     "moment": "^2.24.0",
+    "dotenv": "^6.2.0",
+    "fs": "0.0.1-security",
     "nprogress": "^0.2.0",
     "qs": "^6.6.0",
     "vue": "2.5.*",

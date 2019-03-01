@@ -1,15 +1,18 @@
 'use strict'
 
-const pat = /^VILOVEUL_/i
+const fs = require('fs')
+const dotenv = require('dotenv')
+const merge = require('webpack-merge')
 
-const abuilder = Object.keys(process.env)
-  .filter(key => pat.test(key))
-  .reduce((env, key) => {
-  env[key] = process.env[key];
-  return env;
-}, 
-{
+const pat = /^VILOVEUL_/i
+const viloveul = new Object()
+const configs = dotenv.parse(fs.readFileSync('.env'))
+for (let c in configs) {
+  if (pat.test(c)) {
+    viloveul[c] = '"' + configs[c] + '"'
+  }
+}
+
+module.exports = merge(viloveul, {
   NODE_ENV: '"production"'
 })
-
-module.exports = abuilder
