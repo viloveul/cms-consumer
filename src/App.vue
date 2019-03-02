@@ -25,7 +25,17 @@ export default {
     Menu
   },
   async mounted () {
-    this.menus = await this.$store.dispatch('fetchOption', {name: 'menu-navmenu'}) || []
+    let defaults = [
+      {
+        label: 'Home',
+        url: '/'
+      },
+      {
+        label: 'Blog',
+        url: '/blog'
+      }
+    ]
+    this.menus = await this.$store.dispatch('fetchOption', {name: 'menu-navmenu'}) || defaults
     await this.$store.dispatch('fetchWidget', {type: 'sidebar'})
     await this.$store.dispatch('fetchOption', {name: 'contents'})
     await this.$store.dispatch('syncFeatures')

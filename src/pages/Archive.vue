@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout :class="'main'">
     <template slot="content">
       <div class="content-wrapper" v-for="post in posts" :key="post.id">
         <header class="entry-header">

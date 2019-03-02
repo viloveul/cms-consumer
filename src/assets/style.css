@@ -5,29 +5,10 @@ body {
 
 ul.navmenu {
     display: block;
-    width: 100%;
     margin: 0px auto 30px;
     padding: 0px;
     border-bottom: 1px solid #CCC;
-}
-
-ul.navmenu>li {
-    display: inline-block;
-    margin: 0px auto;
-}
-
-ul.navmenu li>.carret {
-    display: inline;
-    cursor: pointer;
-    font-weight: bold;
-    width: 10px;
-    position: absolute;
-    top: 10px;
-    right: 5px;
-}
-
-ul.navmenu>li>.carret {
-    left: 5px;
+    background: #7e0707;
 }
 
 ul.navmenu li {
@@ -37,12 +18,12 @@ ul.navmenu li {
 ul.navmenu li a {
     display: block;
     padding: 10px 20px;
+    text-decoration: none;
 }
 
 ul.navmenu ul {
     display: block;
     position: absolute;
-    visibility: hidden;
     width: 100%;
     min-width: 150px;
     padding: 0;
@@ -66,6 +47,83 @@ ul.navmenu ul li {
     display: block;
     border: 1px solid #990;
     border-top: none;
+}
+
+ul.navmenu li>.carret {
+    display: inline;
+    cursor: pointer;
+    font-weight: bold;
+    width: 10px;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+}
+
+ul.navmenu>li {
+    display: inline-block;
+    margin: 0px auto;
+    border-left: 1px solid
+}
+ul.navmenu>li>ul {
+    left: -1px;
+}
+
+ul.navmenu>li>.carret {
+    left: 15px;
+    top: 15px;
+    color: #EEE;
+}
+ul.navmenu>li>.carret + a {
+    padding-left: 30px;
+}
+ul.navmenu >li> a {
+    padding: 15px 20px;
+    font-weight: bold;
+    color: #EEE;
+}
+@media (max-width: 768px) {
+    ul.navmenu {
+        margin-left: -15px;
+        margin-right: -15px;
+        width: auto;
+    }
+    ul.navmenu>li {
+        display: block;
+        border-top: 1px solid #CFF;
+    }
+    ul.navmenu ul {
+        position: initial;
+    }
+}
+
+.main {
+    min-height: 80vh;
+    padding-bottom: 30px;
+    position: relative;
+}
+.main .credit {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 30px;
+}
+.main .credit p {
+    margin: 0 auto;
+    line-height: 30px;
+    color: #999999;
+    font-size: 10pt;
+}
+.main .credit p a {
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .main .credit {
+        left: -15px;
+        right: -15px;
+        text-align: center;
+        background: #260303;
+    }
 }
 
 .content-wrapper {
@@ -164,15 +222,14 @@ ul.navmenu ul li {
  */
 
 #profile {
-    position: fixed;
-    top: 0;
-    right: 0;
-    max-height: 100vh;
-    overflow-y: auto;
+    /* initial */
 }
 
 #profile .open-handler {
     cursor: pointer;
+    position: fixed;
+    top: 10px;
+    right: 10px;
     background: #CCC;
     font-size: 20px;
     padding: 10px;
@@ -183,23 +240,49 @@ ul.navmenu ul li {
     border: 3px solid #000;
 }
 
-#profile #profile-box {
-    border: 5px solid #CCC;
-    padding: 10px;
-    margin: 10px 10px 10px 50px;
-    max-width: 200px;
+#profile .profile-box {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    background: rgba(0, 0, 0, 0.75);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+#profile .profile-box .profile-body {
     position: relative;
-    background: #EEE;
+    transition: transform .3s ease-out,-webkit-transform .3s ease-out;
+    transform: translate(0,0);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+#profile .profile-box .profile-body .profile-content {
+    background: #fff;
+    border: 2px solid #CCC;
+    text-align: center;
+    max-width: 500px;
+    padding: 15px;
+    margin: 15px;
+    position: relative;
 }
 
-#profile #profile-box img {
+#profile .profile-box .profile-body .profile-content img {
     max-width: 100%;
 }
+#profile .profile-box .profile-body .profile-content ul {
+    text-align: left;
+}
 
-#profile #profile-box .close-handler {
+#profile .profile-box .close-handler {
     position: absolute;
-    left: -30px;
-    top: -5px;
+    right: -30px;
+    top: -2px;
     background: #CCC;
     color: #fff;
     font-size: 20px;
@@ -236,4 +319,35 @@ ul.navmenu ul li {
 }
 .widget-body .carret {
 	display: none;
+}
+
+/**
+ * SMALL WIDTH
+ */
+@media (max-width: 768px) {
+    .sidebar {
+        margin: 0px -15px;
+        padding: 15px;
+        background: #2e0b0b;
+    }
+    .sidebar:before,
+    .sidebar:after {
+        box-sizing: border-box;
+        content: " ";
+        display: table;
+    }
+    .sidebar .widget {
+        border: none;
+    }
+    .sidebar .widget .widget-title {
+        font-size: 18px;
+        background: none;
+        font-weight: bold;
+        color: #CCC;
+    }
+    .sidebar .widget .widget-title,
+    .sidebar .widget .widget-body {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }

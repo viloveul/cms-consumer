@@ -1,21 +1,22 @@
 <template>
   <ul :class="container" v-if="items.length > 0">
     <li v-for="(item, index) in items" :key="'menu-item-lvl' + lvl + '-' + index">
-      <a href="#" v-on:click.prevent="clickMenu(item.url)">
-        {{ item.label }}
-      </a>
       <span
         :class="'carret'"
         v-if="item.children !== undefined && item.children.length !== 0"
         v-on:click.prevent="triggerMenu(index)">
         {{ opened === index && closeAll === false ? '-' : '+' }}
       </span>
+      <a href="#" v-on:click.prevent="clickMenu(item.url)">
+        {{ item.label }}
+      </a>
       <menu-item
-        v-if="item.children !== undefined && item.children.length !== 0"
+        v-if="item.children !== undefined && item.children.length !== 0 && (opened === index || forceShow === true)"
         v-on:menu-click="handleCollapse"
         :container="container + '-child' + (opened === index && closeAll === false ? ' open' : '')"
         :items="item.children" :lvl="lvl + 1"
         :closeAll="opened != index"
+        :forceShow="forceShow"
       />
     </li>
   </ul>
@@ -41,6 +42,10 @@ export default {
       default: 1
     },
     closeAll: {
+      type: Boolean,
+      default: false
+    },
+    forceShow: {
       type: Boolean,
       default: false
     }

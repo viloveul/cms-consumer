@@ -1,11 +1,11 @@
 <template>
-  <div class="widget widget-post" v-if="results.length > 0">
+  <div class="widget widget-recent-post" v-if="results.length > 0">
     <div class="widget-title">Recent Posts</div>
     <div class="widget-body">
       <ul>
-        <li v-for="(item, index) in results" :key="'widget-post-' + index">
-          <router-link :to="getPermalink(item)">
-            {{ item.title }}
+        <li v-for="(item, index) in results" :key="'widget-recent-post-' + index">
+          <router-link :to="getPermalink(item.attributes)">
+            {{ item.attributes.title }}
           </router-link>
         </li>
       </ul>

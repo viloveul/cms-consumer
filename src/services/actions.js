@@ -27,17 +27,11 @@ export default {
     iframe.style.left = '-9999px'
     iframe.style.top = '-9999px'
     let iframeListener = (event) => {
-      iframe.contentWindow.postMessage('{"features:widget:types": ["sidebar"]}', dashboardUrl)
+      iframe.contentWindow.postMessage('{"features:widget": {"types": ["sidebar"]}, "features:banner": {"width": 960, "height": 300}}', dashboardUrl)
       iframe.removeEventListener('load', iframeListener, true)
-    }
-    let windowListener = (event) => {
-      if (event.origin === dashboardUrl) {
-        window.removeEventListener('message', windowListener, true)
-        iframe.remove()
-      }
+      iframe.remove()
     }
     iframe.addEventListener('load', iframeListener, true)
-    window.addEventListener('message', windowListener, true)
     window.document.body.appendChild(iframe)
   },
   clearToken: async (context, payload) => {
@@ -52,15 +46,9 @@ export default {
     let iframeListener = (event) => {
       iframe.contentWindow.postMessage('viloveul.clear', dashboardUrl)
       iframe.removeEventListener('load', iframeListener, true)
-    }
-    let windowListener = (event) => {
-      if (event.origin === dashboardUrl) {
-        window.removeEventListener('message', windowListener, true)
-        iframe.remove()
-      }
+      iframe.remove()
     }
     iframe.addEventListener('load', iframeListener, true)
-    window.addEventListener('message', windowListener, true)
     window.document.body.appendChild(iframe)
     await context.dispatch('resetMe')
   },

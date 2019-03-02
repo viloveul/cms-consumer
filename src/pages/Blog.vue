@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout :class="'main'">
     <template slot="content">
       <div class="content-wrapper" v-for="post in posts" :key="post.id">
         <header class="entry-header">
@@ -56,7 +56,7 @@ export default {
     }
 
     if (this.$route.query.search !== undefined) {
-      this.filters.search_content = this.$route.params.search
+      this.filters.search_content = this.$route.query.search
     }
     this.$store.commit('setTitle', 'Blog')
     let res = await this.$store.dispatch('fetchBlogPosts', {

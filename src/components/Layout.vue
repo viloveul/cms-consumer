@@ -1,10 +1,15 @@
 <template>
-  <div class="row">
-    <div :class="sidebar === true ? 'col-md-8' : 'col-md-12'">
-      <slot name="content"></slot>
+  <div>
+    <div class="row">
+      <div :class="sidebar === true ? 'col-sm-8' : 'col-sm-12'">
+        <slot name="content"></slot>
+      </div>
+      <div class="col-sm-4" v-if="sidebar === true">
+        <Widget :className="'sidebar'" :type="'sidebar'" />
+      </div>
     </div>
-    <div class="col-md-4" v-if="sidebar === true">
-      <Widget :className="'sidebar'" :type="'sidebar'" />
+    <div class="credit">
+      <p>Powered by <a href="https://www.viloveul.com/" target="_blank"><abbr title="Viloveul">Viloveul.com</abbr></a></p>
     </div>
   </div>
 </template>

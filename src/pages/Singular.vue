@@ -1,5 +1,5 @@
 <template>
-  <Layout :sidebar="isFormatPost(post) === true">
+  <Layout :sidebar="isFormatPost(post) === true" :class="'main'">
     <template slot="content">
       <div class="content-wrapper">
         <header class="entry-header">
@@ -23,8 +23,9 @@
         <div class="entry-content" v-html="post.content"></div>
       </div><!-- .content-wrapper -->
 
-      <CommentForm v-if="post.comment_enabled && isFormatPost(post) === true" :post_id="parseInt(post.id)" :name="me.name" :email="me.email" v-on:sent="reloadComments" />
       <CommentList :key="'comments-' + keyList" v-if="post.comment_enabled && isFormatPost(post) === true" :post_id="parseInt(post.id)" />
+
+      <CommentForm v-if="post.comment_enabled && isFormatPost(post) === true" :post_id="parseInt(post.id)" :name="me.name" :email="me.email" v-on:sent="reloadComments" />
     </template>
   </Layout>
 </template>
@@ -62,6 +63,9 @@ export default {
     this.author = res.data.relationships.author.data || {}
     this.tags = res.data.relationships.tags.data || []
     this.$store.commit('setTitle', this.post.title)
+    if (this.getPermalink(this.post) !== this.$route.path) {
+      await this.$router.replace(this.getPermalink(this.post))
+    }
   },
   data () {
     return {

@@ -8,6 +8,10 @@ body {
     padding-bottom: 50px;
     position: relative;
 }
+.viloveul-container-class .alert {
+    border-radius: 0px;
+    margin: 0px;
+}
 
 .viloveul-container-class div.navmenu-wrapper {
     margin: 0px auto;
@@ -23,9 +27,13 @@ body {
     display: inline-block;
     padding: 0;
     margin: 0 auto;
+    background: none;
+    border: none;
+    border-top: 1px solid #CCC;
 }
 .viloveul-container-class div.navmenu-wrapper ul.navmenu li {
     display: inline;
+    border: none;
 }
 .viloveul-container-class div.navmenu-wrapper ul.navmenu li .carret {
     display: none;
@@ -33,7 +41,8 @@ body {
 .viloveul-container-class div.navmenu-wrapper ul.navmenu li a {
     display: inline-block;
     height: 50px;
-    padding: 15px;
+    line-height: 50px;
+    padding: 0px 15px;
     font-weight: bold;
     text-decoration: none;
     vertical-align: middle;
@@ -120,7 +129,6 @@ body {
 
 #markdown-container {
     box-sizing: border-box;
-    padding: 0;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -131,5 +139,6 @@ body {
     border: 3px double #999;
     border-radius: 5px;
     padding: 25px;
+    overflow: auto;
     margin: 15px;
 }
