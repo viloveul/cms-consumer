@@ -1,5 +1,5 @@
 <template>
-  <div :class="className">
+  <div>
     <form class="form-horizontal" v-on:submit.prevent="handleSubmit">
       <div class="form-group" v-if="notLogin === true">
         <label class="control-label col-md-2">Name</label>
@@ -38,10 +38,6 @@
 
 export default {
   props: {
-    className: {
-      type: String,
-      default: 'comment-form'
-    },
     post_id: {
       type: Number,
       required: true

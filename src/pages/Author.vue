@@ -31,7 +31,7 @@
         </footer><!-- .entry-footer -->
       </div><!-- .content-wrapper -->
       <paginate
-        v-if="pages > 1"
+        v-show="pages > 1"
         :page-count="pages"
         :click-handler="handleClick"
         :prev-text="'Prev'"

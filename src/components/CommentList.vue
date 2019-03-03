@@ -1,5 +1,5 @@
 <template>
-  <div :class="className">
+  <div>
     <div class="comment" v-for="comment in comments" :key="comment.id">
       <div class="comment-wrapper">
         <div class="comment-header">
@@ -12,13 +12,14 @@
       </div>
     </div>
     <paginate
-      v-if="pages > 1"
+      v-show="pages > 1"
       :page-count="pages"
       :click-handler="handleClick"
       :prev-text="'Prev'"
       :next-text="'Next'"
-      :force-page="filters.page"
-      :container-class="'pagination'">
+      :force-page="page"
+      :container-class="'pagination'"
+    >
     </paginate>
   </div>
 </template>
@@ -36,44 +37,49 @@ export default {
       type: Number,
       required: true
     },
-    className: {
+    page: {
+      type: Number,
+      default: 1
+    },
+    size: {
+      type: Number,
+      default: 10
+    },
+    order: {
       type: String,
-      default: 'comment-list'
+      default: 'id'
+    },
+    sort: {
+      type: String,
+      default: 'asc'
     }
   },
   async mounted () {
-    if (this.$route.query.page !== undefined) {
-      this.filters.page = parseInt(this.$route.query.page)
-    }
-
     let res = await this.$store.dispatch('fetchPostComments', {
       id: this.post_id,
-      params: this.filters
+      params: {
+        page: this.page,
+        size: this.size,
+        order: this.order,
+        sort: this.sort
+      }
     })
 
-    this.pages = Math.ceil(res.meta.total / res.meta.size) || 0
     this.comments = res.data.map(comment => {
       return comment.attributes
     })
+    this.pages = Math.ceil(res.meta.total / res.meta.size) || 1
   },
   methods: {
     async handleClick (n) {
-      let qs = Object.assign({}, {...this.$route.query}, {page: n})
-      await this.$router.push({
-        path: this.$route.path,
-        query: {...qs}
-      })
+      await this.$emit('paginate', n)
     }
   },
   data () {
     return {
+      show: false,
       pages: 1,
-      comments: [],
-      filters: {
-        page: 1,
-        order: 'id',
-        sort: 'asc'
-      }
+      comments: []
     }
   }
 }
