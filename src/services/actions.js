@@ -3,6 +3,30 @@ import http from '@/common/http'
 import config from '@/common/config'
 import initial from '@/common/initial'
 
+let getChannel = async (identity, src) => {
+  return new Promise((resolve, reject) => {
+    let k = 'viloveul-' + identity + '-channel'
+    let iframe = window.document.getElementById(k)
+    if (iframe === null) {
+      iframe = window.document.createElement('iframe', {})
+      iframe.id = k
+      iframe.src = src
+      iframe.style.width = '0px'
+      iframe.style.height = '0px'
+      iframe.style.position = 'absolute'
+      iframe.style.left = '-9999px'
+      iframe.style.top = '-9999px'
+      iframe.style.visibility = 'hidden'
+      iframe.addEventListener('load', () => {
+        resolve(iframe)
+      })
+      window.document.body.appendChild(iframe)
+    } else {
+      resolve(iframe)
+    }
+  })
+}
+
 export default {
   resetContainerClasses: async (context, payload) => {
     context.state.containerClasses = initial.containerClasses
@@ -19,55 +43,40 @@ export default {
   },
   syncFeatures: async (context, payload) => {
     let dashboardUrl = config.getDashboardUrl()
-    let iframe = window.document.createElement('iframe', {})
-    iframe.src = dashboardUrl + '/proxy.html'
-    iframe.style.width = '0px'
-    iframe.style.height = '0px'
-    iframe.style.position = 'absolute'
-    iframe.style.left = '-9999px'
-    iframe.style.top = '-9999px'
-    let iframeListener = (event) => {
-      iframe.contentWindow.postMessage('{"features:widget": {"types": ["sidebar"]}, "features:banner": {"width": 960, "height": 300}}', dashboardUrl)
-      iframe.removeEventListener('load', iframeListener, true)
-      iframe.remove()
-    }
-    iframe.addEventListener('load', iframeListener, true)
-    window.document.body.appendChild(iframe)
+    let channel = await getChannel('dashboard', dashboardUrl + '/proxy.html')
+    return new Promise((resolve, reject) => {
+      channel.contentWindow.postMessage('{"widget": {"types": ["sidebar"]}, "banner": {"width": 960, "height": 300}}', dashboardUrl)
+      let windowListener = (event) => {
+        if (event.origin === dashboardUrl) {
+          window.removeEventListener('message', windowListener, true)
+          resolve(null)
+        }
+      }
+      window.addEventListener('message', windowListener, true)
+    })
   },
   clearToken: async (context, payload) => {
     let dashboardUrl = config.getDashboardUrl()
-    let iframe = window.document.createElement('iframe', {})
-    iframe.src = dashboardUrl + '/proxy.html'
-    iframe.style.width = '0px'
-    iframe.style.height = '0px'
-    iframe.style.position = 'absolute'
-    iframe.style.left = '-9999px'
-    iframe.style.top = '-9999px'
-    let iframeListener = (event) => {
-      iframe.contentWindow.postMessage('viloveul.clear', dashboardUrl)
-      iframe.removeEventListener('load', iframeListener, true)
-      iframe.remove()
-    }
-    iframe.addEventListener('load', iframeListener, true)
-    window.document.body.appendChild(iframe)
-    await context.dispatch('resetMe')
+    let channel = await getChannel('dashboard', dashboardUrl + '/proxy.html')
+    return new Promise((resolve, reject) => {
+      channel.contentWindow.postMessage('viloveul.unset:vtoken', dashboardUrl)
+      let windowListener = async (event) => {
+        if (event.origin === dashboardUrl) {
+          await context.dispatch('resetMe')
+          window.removeEventListener('message', windowListener, true)
+          resolve(null)
+        }
+      }
+      window.addEventListener('message', windowListener, true)
+    })
   },
   readToken: async (context, payload) => {
     let dashboardUrl = config.getDashboardUrl()
+    let channel = await getChannel('dashboard', dashboardUrl + '/proxy.html')
     let token = window.localStorage.getItem('vtoken') || null
     return new Promise((resolve, reject) => {
       if (token === null) {
-        let iframe = window.document.createElement('iframe', {})
-        iframe.src = dashboardUrl + '/proxy.html'
-        iframe.style.width = '0px'
-        iframe.style.height = '0px'
-        iframe.style.position = 'absolute'
-        iframe.style.left = '-9999px'
-        iframe.style.top = '-9999px'
-        let iframeListener = (event) => {
-          iframe.contentWindow.postMessage('viloveul.token', dashboardUrl)
-          iframe.removeEventListener('load', iframeListener, true)
-        }
+        channel.contentWindow.postMessage('viloveul.get:vtoken', dashboardUrl)
         let windowListener = (event) => {
           if (event.origin === dashboardUrl) {
             if (event.data !== 'e') {
@@ -77,12 +86,9 @@ export default {
               resolve(null)
             }
             window.removeEventListener('message', windowListener, true)
-            iframe.remove()
           }
         }
-        iframe.addEventListener('load', iframeListener, true)
         window.addEventListener('message', windowListener, true)
-        window.document.body.appendChild(iframe)
       } else {
         resolve(token)
       }
