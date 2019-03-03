@@ -97,7 +97,7 @@ ul.navmenu >li> a {
 }
 
 .main {
-    min-height: 80vh;
+    min-height: 90vh;
     padding-bottom: 30px;
     position: relative;
 }
@@ -186,10 +186,12 @@ ul.navmenu >li> a {
  */
 
 .comment-list .comment {
-    border: 1px solid #CCC;
+    border: 1px solid #EEE;
     padding: 15px 15px 0px;
-    margin-bottom: 15px;
-    background-color: #EEE;
+    margin-bottom: 5px;
+}
+.comment-list .comment:nth-child(odd) {
+    background-color: #FCFCFC;
 }
 
 .comment-wrapper>.comment-header {

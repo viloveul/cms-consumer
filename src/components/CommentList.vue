@@ -11,12 +11,26 @@
         </div>
       </div>
     </div>
+    <paginate
+      v-if="pages > 1"
+      :page-count="pages"
+      :click-handler="handleClick"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :force-page="filters.page"
+      :container-class="'pagination'">
+    </paginate>
   </div>
 </template>
 
 <script type="text/javascript">
 
+import Paginate from 'vuejs-paginate'
+
 export default {
+  components: {
+    Paginate
+  },
   props: {
     post_id: {
       type: Number,
@@ -28,16 +42,38 @@ export default {
     }
   },
   async mounted () {
+    if (this.$route.query.page !== undefined) {
+      this.filters.page = parseInt(this.$route.query.page)
+    }
+
     let res = await this.$store.dispatch('fetchPostComments', {
-      id: this.post_id
+      id: this.post_id,
+      params: this.filters
     })
+
+    this.pages = Math.ceil(res.meta.total / res.meta.size) || 0
     this.comments = res.data.map(comment => {
       return comment.attributes
     })
   },
+  methods: {
+    async handleClick (n) {
+      let qs = Object.assign({}, {...this.$route.query}, {page: n})
+      await this.$router.push({
+        path: this.$route.path,
+        query: {...qs}
+      })
+    }
+  },
   data () {
     return {
-      comments: []
+      pages: 1,
+      comments: [],
+      filters: {
+        page: 1,
+        order: 'id',
+        sort: 'asc'
+      }
     }
   }
 }

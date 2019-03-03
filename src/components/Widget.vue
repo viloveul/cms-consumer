@@ -1,5 +1,5 @@
 <template>
-  <aside :class="className">
+  <aside :class="className" v-if="items.length > 0">
     <component
       v-for="(useItem, useIndex) in items"
       v-if="getComponent(useItem) !== false"

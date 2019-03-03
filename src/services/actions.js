@@ -90,7 +90,7 @@ export default {
   },
   fetchMe: async (context, payload) => {
     let token = await context.dispatch('readToken')
-    if (token === 'null') {
+    if (token === 'null' || token === null) {
       await context.dispatch('resetMe')
     } else if (token !== null) {
       await http.get('/user/me').then(res => {
