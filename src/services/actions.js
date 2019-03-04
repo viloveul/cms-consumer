@@ -45,7 +45,16 @@ export default {
     let dashboardUrl = config.getDashboardUrl()
     let channel = await getChannel('dashboard', dashboardUrl + '/proxy.html')
     return new Promise((resolve, reject) => {
-      channel.contentWindow.postMessage('{"widget": {"types": ["sidebar"]}, "banner": {"width": 960, "height": 300}}', dashboardUrl)
+      let features = {
+        widget: {
+          types: ['sidebar']
+        },
+        banner: {
+          width: 960,
+          height: 300
+        }
+      }
+      channel.contentWindow.postMessage(features, dashboardUrl)
       let windowListener = (event) => {
         if (event.origin === dashboardUrl) {
           window.removeEventListener('message', windowListener, true)
@@ -98,12 +107,12 @@ export default {
     let token = await context.dispatch('readToken')
     if (token === 'null' || token === null) {
       await context.dispatch('resetMe')
-    } else if (token !== null) {
+    } else {
       await http.get('/user/me').then(res => {
         context.commit('setMe', res.data.data.attributes)
         context.commit('setPrivileges', res.data.meta.privileges)
       }).catch(async (e) => {
-        await context.dispatch('clearToken')
+        await context.dispatch('resetMe')
       })
     }
   },
