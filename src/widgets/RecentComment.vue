@@ -5,7 +5,7 @@
       <ul>
         <li v-for="(item, index) in results" :key="'widget-recent-comment-' + index">
           {{ item.name }} on
-          <router-link :to="'/' + item.post.slug">
+          <router-link :to="getPermalink(item.post)">
             "{{ item.post.title }}"
           </router-link>
         </li>
@@ -16,11 +16,16 @@
 
 <script type="text/javascript">
 
+import helpers from '@/services/helpers'
+
 export default {
   props: {
     results: {
       type: Array
     }
+  },
+  methods: {
+    ...helpers
   }
 }
 

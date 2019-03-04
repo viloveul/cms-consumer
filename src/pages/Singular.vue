@@ -23,9 +23,26 @@
         <div class="entry-content" v-html="post.content"></div>
       </div><!-- .content-wrapper -->
 
-      <CommentList :key="'comments-' + keyList" v-if="post.comment_enabled && isFormatPost(post) === true" :post_id="parseInt(post.id)" />
+      <CommentList
+        v-if="post.comment_enabled && isFormatPost(post) === true"
+        v-on:paginate="handlePaginate"
+        :key="'comments-' + keyList"
+        :post_id="parseInt(post.id)"
+        :page="page"
+        :class="'comment-list'"
+      >
+      </CommentList>
 
-      <CommentForm v-if="post.comment_enabled && isFormatPost(post) === true" :post_id="parseInt(post.id)" :name="me.name" :email="me.email" v-on:sent="reloadComments" />
+      <CommentForm
+        v-if="post.comment_enabled && isFormatPost(post) === true"
+        v-on:sent="reloadComments"
+        :post_id="parseInt(post.id)"
+        :name="me.name"
+        :email="me.email"
+        :class="'comment-form'"
+      >
+      </CommentForm>
+
     </template>
   </Layout>
 </template>
@@ -47,12 +64,21 @@ export default {
   computed: {
     me () {
       return this.$store.getters.getMe()
+    },
+    page () {
+      return parseInt(this.$route.query.page === undefined ? 1 : this.$route.query.page)
     }
   },
   methods: {
     ...helpers,
     async reloadComments () {
       this.keyList = Math.random()
+    },
+    async handlePaginate (n) {
+      await this.$router.push({
+        path: this.$route.path,
+        query: Object.assign({}, {...this.$route.query}, {page: n})
+      })
     }
   },
   async mounted () {
