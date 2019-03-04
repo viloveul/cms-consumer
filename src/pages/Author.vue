@@ -86,7 +86,7 @@ export default {
   },
   data () {
     return {
-      pages: 10,
+      pages: 1,
       posts: [],
       filters: {
         page: 1

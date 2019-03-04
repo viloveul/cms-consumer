@@ -234,10 +234,11 @@ ul.navmenu >li> a {
     right: 10px;
     background: #CCC;
     font-size: 20px;
-    padding: 10px;
+    padding: 0px;
     margin: 10px;
     display: flex;
     border-radius: 100%;
+    box-shadow: 0px 0px 5px 1px #CCC;
     color: #FFF;
     border: 3px solid #000;
 }

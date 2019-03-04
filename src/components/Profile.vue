@@ -1,8 +1,11 @@
 <template>
   <div id="profile" v-if="isLogged === true">
-    <span class="open-handler" v-on:click="triggerState" v-if="this.opened === false">
-      <i class="glyphicon glyphicon-user"></i>
-    </span>
+    <img
+      class="open-handler"
+      v-on:click="triggerState" v-if="this.opened === false"
+      :src="me.picture"
+      style="width: 50px; height: 50px;"
+    >
     <div class="profile-box" tabindex="-1" role="dialog" v-else>
       <div class="profile-body">
         <div class="profile-content">
