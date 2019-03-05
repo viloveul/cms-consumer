@@ -18,11 +18,15 @@ let getChannel = async (identity, src) => {
       iframe.style.top = '-9999px'
       iframe.style.visibility = 'hidden'
       iframe.addEventListener('load', () => {
-        resolve(iframe)
+        try {
+          resolve(iframe.contentWindow)
+        } catch (e) {
+          resolve(iframe.contentWindow)
+        }
       })
       window.document.body.appendChild(iframe)
     } else {
-      resolve(iframe)
+      resolve(iframe.contentWindow)
     }
   })
 }
@@ -35,26 +39,55 @@ export default {
     context.state.errors = []
   },
   resetMe: async (context, payload) => {
-    await window.localStorage.clear()
+    await window.localStorage.removeItem('vtoken')
     await context.commit('setMe', {
       ...initial.me
     })
     await context.commit('setPrivileges', [])
   },
+  updateTitle: async (context, content) => {
+    let val = content === null ? context.getters.getOption('description') : content
+    window.document.title = context.getters.getOption('brand') + ' : ' + val
+  },
+  updateDescription: async (context, content) => {
+    let metas = window.document.querySelectorAll('[viloveul-controlled-description]')
+    for (let i = 0; i < metas.length; i++) {
+      metas[i].parentNode.removeChild(metas[i])
+    }
+    let val = content === null ? context.getters.getOption('description') : content
+
+    let description = document.createElement('meta')
+    description.setAttribute('name', 'description')
+    description.setAttribute('content', val)
+    description.setAttribute('viloveul-controlled-description', '')
+    window.document.head.appendChild(description)
+
+    let ogdescription = document.createElement('meta')
+    ogdescription.setAttribute('property', 'og:description')
+    ogdescription.setAttribute('content', val)
+    ogdescription.setAttribute('viloveul-controlled-description', '')
+    window.document.head.appendChild(ogdescription)
+  },
   syncFeatures: async (context, payload) => {
     let dashboardUrl = config.getDashboardUrl()
     let channel = await getChannel('dashboard', dashboardUrl + '/proxy.html')
     return new Promise((resolve, reject) => {
-      let features = {
-        widget: {
-          types: ['sidebar']
+      let features = [
+        {
+          key: 'widget',
+          value: {
+            types: ['sidebar']
+          }
         },
-        banner: {
-          width: 960,
-          height: 300
+        {
+          key: 'banner',
+          value: {
+            width: 960,
+            height: 200
+          }
         }
-      }
-      channel.contentWindow.postMessage(features, dashboardUrl)
+      ]
+      channel.postMessage({cmd: 'viloveul.sync', params: features}, dashboardUrl)
       let windowListener = (event) => {
         if (event.origin === dashboardUrl) {
           window.removeEventListener('message', windowListener, true)
@@ -68,7 +101,7 @@ export default {
     let dashboardUrl = config.getDashboardUrl()
     let channel = await getChannel('dashboard', dashboardUrl + '/proxy.html')
     return new Promise((resolve, reject) => {
-      channel.contentWindow.postMessage('viloveul.unset:vtoken', dashboardUrl)
+      channel.postMessage({cmd: 'viloveul.delete', params: ['vtoken']}, dashboardUrl)
       let windowListener = async (event) => {
         if (event.origin === dashboardUrl) {
           await context.dispatch('resetMe')
@@ -85,12 +118,12 @@ export default {
     let token = window.localStorage.getItem('vtoken') || null
     return new Promise((resolve, reject) => {
       if (token === null) {
-        channel.contentWindow.postMessage('viloveul.get:vtoken', dashboardUrl)
+        channel.postMessage({cmd: 'viloveul.fetch', params: ['vtoken']}, dashboardUrl)
         let windowListener = (event) => {
           if (event.origin === dashboardUrl) {
-            if (event.data !== 'e') {
-              window.localStorage.setItem('vtoken', event.data)
-              resolve(event.data)
+            if (event.data.status === 'success' && event.data.params.vtoken !== undefined) {
+              window.localStorage.setItem('vtoken', event.data.params.vtoken)
+              resolve(event.data.params.vtoken)
             } else {
               resolve(null)
             }

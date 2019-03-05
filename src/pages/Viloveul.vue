@@ -27,6 +27,7 @@ import axios from 'axios'
 export default {
   name: 'Viloveul',
   async mounted () {
+    await this.$store.dispatch('updateTitle', null)
     await this.$store.commit('setContainerClasses', 'viloveul-container-class')
     await this.$store.commit('setShowNavbar', false)
     await axios.get('https://api.github.com/repos/zafex/viloveul-framework/readme', {

@@ -73,7 +73,7 @@ export default {
 
     this.posts = res.data
     this.pages = Math.ceil(res.meta.total / res.meta.size) || 0
-    this.$store.commit('setTitle', 'Archive - ' + res.meta.archive.title)
+    this.$store.dispatch('updateTitle', 'Archive - ' + res.meta.archive.title)
   },
   methods: {
     ...helpers,

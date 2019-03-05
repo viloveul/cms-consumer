@@ -88,7 +88,8 @@ export default {
     this.post = res.data.attributes
     this.author = res.data.relationships.author.data || {}
     this.tags = res.data.relationships.tags.data || []
-    this.$store.commit('setTitle', this.post.title)
+    this.$store.dispatch('updateTitle', this.post.title)
+    this.$store.dispatch('updateDescription', this.post.description)
     if (this.getPermalink(this.post) !== this.$route.path) {
       await this.$router.replace(this.getPermalink(this.post))
     }

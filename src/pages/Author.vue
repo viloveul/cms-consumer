@@ -72,7 +72,7 @@ export default {
     this.posts = res.data
     this.pages = Math.ceil(res.meta.total / res.meta.size) || 0
 
-    this.$store.commit('setTitle', 'Author - ' + res.meta.author.name)
+    this.$store.dispatch('updateTitle', 'Author - ' + res.meta.author.name)
   },
   methods: {
     ...helpers,

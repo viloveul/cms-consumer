@@ -36,6 +36,8 @@ export default {
       }
     ]
     this.menus = await this.$store.dispatch('fetchOption', {name: 'menu-navmenu'}) || defaults
+    await this.$store.dispatch('fetchOption', {name: 'brand'})
+    await this.$store.dispatch('fetchOption', {name: 'description'})
     await this.$store.dispatch('fetchWidget', {type: 'sidebar'})
     await this.$store.dispatch('fetchOption', {name: 'contents'})
     await this.$store.dispatch('syncFeatures')
