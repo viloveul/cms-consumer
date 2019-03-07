@@ -2,7 +2,7 @@
   <div class="widget widget-menu" v-if="results.length > 0">
     <div class="widget-title">Menu</div>
     <div class="widget-body">
-      <Menu :items="results" :container="'dor'" :forceShow="true" />
+      <Menu :items="results" :class="'dor'" />
     </div>
   </div>
 </template>
