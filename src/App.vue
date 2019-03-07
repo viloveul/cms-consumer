@@ -1,7 +1,15 @@
 <template>
   <div :class="containerClasses">
     <div class="navmenu-wrapper" v-if="menus.length > 0">
-      <Menu :items="menus" :container="'navmenu'" />
+      <Menu
+        :items="menus"
+        :class="'navmenu'"
+        :key="menuKey"
+        v-on:open-menu="menuOpened = true"
+        v-on:close-menu="menuOpened = false"
+      >
+      </Menu>
+      <div class="navmenu-shadow" v-if="menuOpened === true" v-on:click="closeMenu"></div>
     </div>
     <div class="alert alert-danger" v-for="(error, index) in errors" :key="index">
       {{ error }}
@@ -36,10 +44,12 @@ export default {
       }
     ]
     this.menus = await this.$store.dispatch('fetchOption', {name: 'menu-navmenu'}) || defaults
+    await this.$store.dispatch('fetchOption', {name: 'brand'})
+    await this.$store.dispatch('fetchOption', {name: 'description'})
     await this.$store.dispatch('fetchWidget', {type: 'sidebar'})
     await this.$store.dispatch('fetchOption', {name: 'contents'})
-    await this.$store.dispatch('syncFeatures')
     await this.$store.dispatch('fetchMe')
+    await this.$store.dispatch('syncFeatures')
   },
   computed: {
     containerClasses () {
@@ -52,11 +62,17 @@ export default {
   methods: {
     handleDeleteError (index) {
       this.errors.splice(index, 1)
+    },
+    closeMenu () {
+      this.menuKey = 'navmenu' + Math.random()
+      this.menuOpened = false
     }
   },
   data () {
     return {
-      menus: []
+      menus: [],
+      menuKey: 'navmenu',
+      menuOpened: false
     }
   }
 }

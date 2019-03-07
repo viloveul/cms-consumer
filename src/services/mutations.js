@@ -42,26 +42,6 @@ export default {
       await context.errors.push(errors[i])
     }
   },
-  setTitle: async (context, title) => {
-    window.document.title = title
-  },
-  setDescription: async (context, content) => {
-    window.document.querySelector('[viloveul-controlled-description]').map(el => {
-      el.parentNode.removeChild(el)
-    })
-
-    let description = document.createElement('meta')
-    description.setAttribute('name', 'description')
-    description.setAttribute('content', content)
-    description.setAttribute('viloveul-controlled-description', '')
-    window.document.head.appendChild(description)
-
-    let ogdescription = document.createElement('meta')
-    ogdescription.setAttribute('property', 'og:description')
-    ogdescription.setAttribute('content', content)
-    ogdescription.setAttribute('viloveul-controlled-description', '')
-    window.document.head.appendChild(ogdescription)
-  },
   setRedirection: async (context, path) => {
     context.redirect = path
   }

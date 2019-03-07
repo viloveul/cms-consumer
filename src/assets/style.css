@@ -3,7 +3,17 @@ body {
     padding: 0;
 }
 
+div.navmenu-shadow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2999;
+}
 ul.navmenu {
+    position: relative;
+    z-index: 3000;
     display: block;
     margin: 0px auto 30px;
     padding: 0px;
@@ -24,54 +34,99 @@ ul.navmenu li a {
 ul.navmenu ul {
     display: block;
     position: absolute;
-    width: 100%;
     min-width: 150px;
-    padding: 0;
+    padding: 10px;
     margin: 0 auto;
     left: 0;
-    background: #EEE;
-    border-top: 1px solid;
     z-index: 1;
+    border: 1px solid #990;
+    background: #FFF;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, .5);
 }
 
 ul.navmenu ul.open {
     visibility: visible;
 }
 
-ul.navmenu ul ul {
-    left: 100%;
-    top: -1px;
-}
-
 ul.navmenu ul li {
     display: block;
-    border: 1px solid #990;
-    border-top: none;
+    border-bottom: 1px solid #990;
+}
+ul.navmenu ul li:last-child {
+    border-bottom: none;
+}
+
+ul.navmenu ul ul {
+    left: 100%;
+    margin-left: 25px;
+    top: -11px;
 }
 
 ul.navmenu li>.carret {
     display: inline;
     cursor: pointer;
     font-weight: bold;
-    width: 10px;
+    width: 20px;
+    height: 20px;
     position: absolute;
     top: 10px;
     right: 5px;
+    line-height: 20px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 100%;
 }
 
 ul.navmenu>li {
     display: inline-block;
     margin: 0px auto;
-    border-left: 1px solid
+    border-left: 1px solid #000;
+    border-right: 1px solid #990;
+}
+ul.navmenu>li:first-child {
+    border-left: none;
+}
+ul.navmenu>li:last-child {
+    border-right: none;
 }
 ul.navmenu>li>ul {
     left: -1px;
+    top: 100%;
+    margin-top: 10px;
+}
+ul.navmenu>li>ul:after {
+  width: 0; 
+  height: 0; 
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #990;
+  content: " ";
+  top: -7px;
+  left: 10px;
+  position: absolute;
+}
+ul.navmenu>li>ul ul:after {
+  width: 0; 
+  height: 0; 
+  border-top: 7px solid transparent;
+  border-right: 7px solid #990;
+  border-bottom: 7px solid transparent;
+  content: " ";
+  top: 25px;
+  left: -7px;
+  position: absolute;
 }
 
 ul.navmenu>li>.carret {
-    left: 15px;
+    left: 5px;
     top: 15px;
     color: #EEE;
+    border-radius: 100%;
+}
+ul.navmenu li>.carret:hover {
+    background: #000;
+    color: #FFF;
 }
 ul.navmenu>li>.carret + a {
     padding-left: 30px;
@@ -91,8 +146,21 @@ ul.navmenu >li> a {
         display: block;
         border-top: 1px solid #CFF;
     }
+    ul.navmenu>li>.carret {
+        left: auto;
+        top: 15px;
+        color: #EEE;
+        border-radius: 100%;
+    }
+    ul.navmenu>li>.carret + a {
+        padding-left: 20px;
+    }
     ul.navmenu ul {
         position: initial;
+        margin-bottom: 5px;
+    }
+    ul.navmenu ul:after {
+        display: none;
     }
 }
 
@@ -271,7 +339,7 @@ ul.navmenu >li> a {
     text-align: center;
     max-width: 500px;
     padding: 15px;
-    margin: 15px;
+    margin: 50px;
     position: relative;
 }
 
@@ -285,12 +353,14 @@ ul.navmenu >li> a {
 #profile .profile-box .close-handler {
     position: absolute;
     right: -30px;
-    top: -2px;
-    background: #CCC;
-    color: #fff;
-    font-size: 20px;
-    padding: 5px;
-    display: flex;
+    top: -30px;
+    background: #FFF;
+    color: #000;
+    height: 30px;
+    width: 30px;
+    font-size: 28px;
+    border: 1px solid #FFF;
+    border-radius: 100%;
     margin: 0;
     text-align: center;
     display: flex;

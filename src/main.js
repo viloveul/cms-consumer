@@ -40,15 +40,16 @@ http.interceptors.response.use(
   }
 )
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.path !== from.path) {
-    store.dispatch('resetErrors')
-    store.dispatch('resetContainerClasses')
-    store.commit('setBreadcrumbs', [])
-    store.commit('setTitle', 'Viloveul')
-    store.commit('setShowNavbar', true)
+    await store.dispatch('resetErrors')
+    await store.dispatch('resetContainerClasses')
+    await store.commit('setBreadcrumbs', [])
+    await store.dispatch('updateTitle', null)
+    await store.dispatch('updateDescription', null)
+    await store.commit('setShowNavbar', true)
   }
-  store.commit('setRedirection', from.path)
+  await store.commit('setRedirection', from.path)
   return next()
 })
 

@@ -1,10 +1,10 @@
 const baseUrl = (typeof process.env.VILOVEUL_BASE_URL !== 'undefined') ? process.env.VILOVEUL_BASE_URL : __dirname
 
-const apiUrl = (typeof process.env.VILOVEUL_API_URL !== 'undefined') ? process.env.VILOVEUL_API_URL : 'http://localhost:3333/api/v1'
+const apiUrl = (typeof process.env.VILOVEUL_API_URL !== 'undefined') ? process.env.VILOVEUL_API_URL : 'http://localhost:19910/api/v1'
 
 const tokenHeader = (typeof process.env.VILOVEUL_TOKEN_HEADER !== 'undefined') ? process.env.VILOVEUL_TOKEN_HEADER : 'Bearer'
 
-const dashboardUrl = (typeof process.env.VILOVEUL_DASHBOARD_URL !== 'undefined') ? process.env.VILOVEUL_DASHBOARD_URL : 'http://localhost:8085'
+const dashboardUrl = (typeof process.env.VILOVEUL_DASHBOARD_URL !== 'undefined') ? process.env.VILOVEUL_DASHBOARD_URL : 'http://localhost:19911'
 
 export default {
   getBaseUrl () {

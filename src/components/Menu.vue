@@ -1,22 +1,22 @@
 <template>
-  <ul :class="container" v-if="items.length > 0">
+  <ul v-if="items.length > 0">
     <li v-for="(item, index) in items" :key="'menu-item-lvl' + lvl + '-' + index">
       <span
         :class="'carret'"
         v-if="item.children !== undefined && item.children.length !== 0"
-        v-on:click.prevent="triggerMenu(index)">
+        v-on:click.prevent="triggerMenu(index)"
+      >
         {{ opened === index && closeAll === false ? '-' : '+' }}
       </span>
       <a href="#" v-on:click.prevent="clickMenu(item.url)">
         {{ item.label }}
       </a>
       <menu-item
-        v-if="item.children !== undefined && item.children.length !== 0 && (opened === index || forceShow === true)"
-        v-on:menu-click="handleCollapse"
-        :container="container + '-child' + (opened === index && closeAll === false ? ' open' : '')"
+        v-if="item.children !== undefined && item.children.length !== 0 && opened === index"
+        v-on:menu-collapse="handleCollapse"
+        :class="'child-menu' + (opened === index && closeAll === false ? ' open' : '')"
         :items="item.children" :lvl="lvl + 1"
         :closeAll="opened != index"
-        :forceShow="forceShow"
       />
     </li>
   </ul>
@@ -27,10 +27,6 @@
 export default {
   name: 'menu-item',
   props: {
-    container: {
-      type: String,
-      default: 'navmenu'
-    },
     items: {
       type: Array,
       default: () => {
@@ -44,10 +40,6 @@ export default {
     closeAll: {
       type: Boolean,
       default: false
-    },
-    forceShow: {
-      type: Boolean,
-      default: false
     }
   },
   updated () {
@@ -57,7 +49,8 @@ export default {
   },
   methods: {
     async handleCollapse () {
-      await this.$emit('menu-click')
+      await this.$emit('close-menu')
+      await this.$emit('menu-collapse')
       this.opened = -1
     },
     async triggerMenu (index) {
@@ -65,6 +58,11 @@ export default {
         this.opened = -1
       } else {
         this.opened = index
+      }
+      if (this.opened === -1) {
+        this.$emit('close-menu')
+      } else {
+        this.$emit('open-menu')
       }
     },
     async clickMenu (url) {

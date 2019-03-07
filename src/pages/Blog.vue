@@ -74,7 +74,7 @@ export default {
       this.filters.page = parseInt(this.$route.query.page)
     }
 
-    this.$store.commit('setTitle', 'Blog')
+    this.$store.dispatch('updateTitle', 'Blog')
     let res = await this.$store.dispatch('fetchBlogPosts', {
       params: this.filters
     })

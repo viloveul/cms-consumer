@@ -3,30 +3,6 @@ import http from '@/common/http'
 import config from '@/common/config'
 import initial from '@/common/initial'
 
-let getChannel = async (identity, src) => {
-  return new Promise((resolve, reject) => {
-    let k = 'viloveul-' + identity + '-channel'
-    let iframe = window.document.getElementById(k)
-    if (iframe === null) {
-      iframe = window.document.createElement('iframe', {})
-      iframe.id = k
-      iframe.src = src
-      iframe.style.width = '0px'
-      iframe.style.height = '0px'
-      iframe.style.position = 'absolute'
-      iframe.style.left = '-9999px'
-      iframe.style.top = '-9999px'
-      iframe.style.visibility = 'hidden'
-      iframe.addEventListener('load', () => {
-        resolve(iframe)
-      })
-      window.document.body.appendChild(iframe)
-    } else {
-      resolve(iframe)
-    }
-  })
-}
-
 export default {
   resetContainerClasses: async (context, payload) => {
     context.state.containerClasses = initial.containerClasses
@@ -35,17 +11,83 @@ export default {
     context.state.errors = []
   },
   resetMe: async (context, payload) => {
-    await window.localStorage.clear()
-    await context.commit('setMe', {
-      ...initial.me
-    })
+    await window.localStorage.removeItem('vtoken')
+    await context.commit('setMe', {...initial.me})
     await context.commit('setPrivileges', [])
+  },
+  updateTitle: async (context, content) => {
+    let val = content === null ? context.getters.getOption('description') : content
+    window.document.title = context.getters.getOption('brand') + ' : ' + val
+  },
+  updateDescription: async (context, content) => {
+    let metas = window.document.querySelectorAll('[viloveul-controlled-description]')
+    for (let i = 0; i < metas.length; i++) {
+      metas[i].parentNode.removeChild(metas[i])
+    }
+    let val = content === null ? context.getters.getOption('description') : content
+
+    let description = document.createElement('meta')
+    description.setAttribute('name', 'description')
+    description.setAttribute('content', val)
+    description.setAttribute('viloveul-controlled-description', '')
+    window.document.head.appendChild(description)
+
+    let ogdescription = document.createElement('meta')
+    ogdescription.setAttribute('property', 'og:description')
+    ogdescription.setAttribute('content', val)
+    ogdescription.setAttribute('viloveul-controlled-description', '')
+    window.document.head.appendChild(ogdescription)
+  },
+  channel: async (context, payload) => {
+    try {
+      let origin = payload.origin
+      let params = payload.params
+      let cmd = payload.cmd
+      let target = origin + '/proxy.html'
+      let el = window.document.querySelector('[src="' + target + '"]')
+      let proxy = await new Promise((resolve, reject) => {
+        if (el === null) {
+          el = window.document.createElement('iframe', {})
+          el.src = target
+          el.style.width = '0px'
+          el.style.height = '0px'
+          el.style.position = 'absolute'
+          el.style.left = '-9999px'
+          el.style.border = 'None'
+          el.style.top = '-9999px'
+          el.style.visibility = 'hidden'
+          el.addEventListener('load', () => {
+            resolve(el)
+          })
+          window.document.body.appendChild(el)
+        } else {
+          resolve(el)
+        }
+      })
+      proxy.contentWindow.postMessage({cmd, params}, origin)
+    } catch (e) {
+      // do nothing
+    }
   },
   syncFeatures: async (context, payload) => {
     let dashboardUrl = config.getDashboardUrl()
-    let channel = await getChannel('dashboard', dashboardUrl + '/proxy.html')
     return new Promise((resolve, reject) => {
-      channel.contentWindow.postMessage('{"widget": {"types": ["sidebar"]}, "banner": {"width": 960, "height": 300}}', dashboardUrl)
+      let features = [
+        {
+          key: 'widget',
+          value: {
+            types: ['sidebar']
+          }
+        },
+        {
+          key: 'banner',
+          value: {
+            width: 960,
+            height: 200
+          }
+        }
+      ]
+      context.dispatch('channel', {cmd: 'viloveul.sync', params: features, origin: dashboardUrl})
       let windowListener = (event) => {
         if (event.origin === dashboardUrl) {
           window.removeEventListener('message', windowListener, true)
@@ -57,9 +99,8 @@ export default {
   },
   clearToken: async (context, payload) => {
     let dashboardUrl = config.getDashboardUrl()
-    let channel = await getChannel('dashboard', dashboardUrl + '/proxy.html')
     return new Promise((resolve, reject) => {
-      channel.contentWindow.postMessage('viloveul.unset:vtoken', dashboardUrl)
+      context.dispatch('channel', {origin: dashboardUrl, cmd: 'viloveul.delete', params: ['vtoken']})
       let windowListener = async (event) => {
         if (event.origin === dashboardUrl) {
           await context.dispatch('resetMe')
@@ -72,16 +113,15 @@ export default {
   },
   readToken: async (context, payload) => {
     let dashboardUrl = config.getDashboardUrl()
-    let channel = await getChannel('dashboard', dashboardUrl + '/proxy.html')
     let token = window.localStorage.getItem('vtoken') || null
     return new Promise((resolve, reject) => {
       if (token === null) {
-        channel.contentWindow.postMessage('viloveul.get:vtoken', dashboardUrl)
+        context.dispatch('channel', {origin: dashboardUrl, cmd: 'viloveul.fetch', params: ['vtoken']})
         let windowListener = (event) => {
           if (event.origin === dashboardUrl) {
-            if (event.data !== 'e') {
-              window.localStorage.setItem('vtoken', event.data)
-              resolve(event.data)
+            if (event.data.status === 'success' && event.data.params.vtoken !== undefined) {
+              window.localStorage.setItem('vtoken', event.data.params.vtoken)
+              resolve(event.data.params.vtoken)
             } else {
               resolve(null)
             }
@@ -98,12 +138,12 @@ export default {
     let token = await context.dispatch('readToken')
     if (token === 'null' || token === null) {
       await context.dispatch('resetMe')
-    } else if (token !== null) {
+    } else {
       await http.get('/user/me').then(res => {
         context.commit('setMe', res.data.data.attributes)
         context.commit('setPrivileges', res.data.meta.privileges)
       }).catch(async (e) => {
-        await context.dispatch('clearToken')
+        await context.dispatch('resetMe')
       })
     }
   },
