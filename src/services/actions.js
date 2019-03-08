@@ -41,7 +41,6 @@ export default {
   channel: async (context, payload) => {
     try {
       let origin = payload.origin
-      let params = payload.params
       let cmd = payload.cmd
       let target = origin + '/proxy.html'
       let el = window.document.querySelector('[src="' + target + '"]')
@@ -64,43 +63,15 @@ export default {
           resolve(el)
         }
       })
-      proxy.contentWindow.postMessage({cmd, params}, origin)
+      proxy.contentWindow.postMessage({cmd}, origin)
     } catch (e) {
       // do nothing
     }
   },
-  syncFeatures: async (context, payload) => {
-    let dashboardUrl = config.getDashboardUrl()
-    return new Promise((resolve, reject) => {
-      let features = [
-        {
-          key: 'widget',
-          value: {
-            types: ['sidebar']
-          }
-        },
-        {
-          key: 'banner',
-          value: {
-            width: 960,
-            height: 200
-          }
-        }
-      ]
-      context.dispatch('channel', {cmd: 'viloveul.sync', params: features, origin: dashboardUrl})
-      let windowListener = (event) => {
-        if (event.origin === dashboardUrl) {
-          window.removeEventListener('message', windowListener, true)
-          resolve(null)
-        }
-      }
-      window.addEventListener('message', windowListener, true)
-    })
-  },
   clearToken: async (context, payload) => {
     let dashboardUrl = config.getDashboardUrl()
     return new Promise((resolve, reject) => {
-      context.dispatch('channel', {origin: dashboardUrl, cmd: 'viloveul.delete', params: ['vtoken']})
+      context.dispatch('channel', {origin: dashboardUrl, cmd: 'viloveul.clear'})
       let windowListener = async (event) => {
         if (event.origin === dashboardUrl) {
           await context.dispatch('resetMe')
@@ -116,12 +87,12 @@ export default {
     let token = window.localStorage.getItem('vtoken') || null
     return new Promise((resolve, reject) => {
       if (token === null) {
-        context.dispatch('channel', {origin: dashboardUrl, cmd: 'viloveul.fetch', params: ['vtoken']})
+        context.dispatch('channel', {origin: dashboardUrl, cmd: 'viloveul.read'})
         let windowListener = (event) => {
           if (event.origin === dashboardUrl) {
-            if (event.data.status === 'success' && event.data.params.vtoken !== undefined) {
-              window.localStorage.setItem('vtoken', event.data.params.vtoken)
-              resolve(event.data.params.vtoken)
+            if (event.data.status === 'success' && event.data.value !== undefined) {
+              window.localStorage.setItem('vtoken', event.data.value)
+              resolve(event.data.value)
             } else {
               resolve(null)
             }
