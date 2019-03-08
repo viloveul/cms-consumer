@@ -1,0 +1,40 @@
+{
+    "name": "Viloveul",
+    "author": "Fajrul Akbar Zuhdi <fajrulaz@gmail.com>",
+    "support" : {
+	    "contents": {
+	        "posts": [{
+	            "label": "Post",
+	            "format": "post",
+	            "name": "post"
+	        }, {
+	            "label": "Page",
+	            "format": "page",
+	            "name": "page"
+	        }],
+	        "tags": [{
+	            "label": "Tag",
+	            "format": "tag",
+	            "name": "tag"
+	        }, {
+	            "label": "Category",
+	            "format": "category",
+	            "name": "category"
+	        }],
+	        "menus": [{
+	          "name": "navmenu",
+	          "format": "standar",
+	          "label": "Nav Menu"
+	        }]
+	    },
+	    "features": {
+	        "widget": {
+	            "types": ["sidebar"]
+	        },
+	        "banner": {
+	            "width": 960,
+	            "height": 200
+	        }
+	    }
+	}
+}

@@ -49,7 +49,6 @@ export default {
     await this.$store.dispatch('fetchWidget', {type: 'sidebar'})
     await this.$store.dispatch('fetchOption', {name: 'contents'})
     await this.$store.dispatch('fetchMe')
-    await this.$store.dispatch('syncFeatures')
   },
   computed: {
     containerClasses () {
