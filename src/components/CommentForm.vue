@@ -41,29 +41,25 @@ export default {
     post_id: {
       type: Number,
       required: true
-    },
-    name: {
-      type: String
-    },
-    email: {
-      type: String
     }
   },
   methods: {
     async handleSubmit () {
       await this.$store.dispatch('resetErrors')
       await this.$store.dispatch('sendComment', {
-        id: this.post_id,
-        params: {
-          name: this.name,
-          email: this.email,
-          website: this.website,
-          content: this.content
-        }
+        post_id: this.post_id,
+        name: this.name,
+        email: this.email,
+        website: this.website,
+        content: this.content
       })
       this.content = ''
       this.$emit('sent')
     }
+  },
+  mounted () {
+    this.name = this.me.name
+    this.email = this.me.email
   },
   computed: {
     notLogin () {
@@ -75,6 +71,8 @@ export default {
   },
   data () {
     return {
+      name: '',
+      email: '',
       website: '',
       content: ''
     }

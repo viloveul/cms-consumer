@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <paginate
+    <Paginate
       v-show="pages > 1"
       :page-count="pages"
       :click-handler="handleClick"
@@ -20,7 +20,7 @@
       :force-page="page"
       :container-class="'pagination'"
     >
-    </paginate>
+    </Paginate>
   </div>
 </template>
 

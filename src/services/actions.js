@@ -163,7 +163,7 @@ export default {
     return res.data
   },
   sendComment: async (context, payload) => {
-    let res = await http.post('/blog/comment/' + payload.id, qs.stringify(payload.params || {}))
+    let res = await http.post('/comment/create', qs.stringify(payload || {}))
     return res.data
   }
 }

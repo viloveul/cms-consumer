@@ -30,7 +30,7 @@
           </div>
         </footer><!-- .entry-footer -->
       </div><!-- .content-wrapper -->
-      <paginate
+      <Paginate
         v-show="pages > 1"
         :page-count="pages"
         :click-handler="handleClick"
@@ -38,7 +38,7 @@
         :next-text="'Next'"
         :force-page="filters.page"
         :container-class="'pagination'">
-      </paginate>
+      </Paginate>
     </template>
   </Layout>
 </template>
