@@ -37,8 +37,6 @@
         v-if="post.comment_enabled && isFormatPost(post) === true"
         v-on:sent="reloadComments"
         :post_id="parseInt(post.id)"
-        :name="me.name"
-        :email="me.email"
         :class="'comment-form'"
       >
       </CommentForm>
@@ -62,9 +60,6 @@ export default {
     CommentList
   },
   computed: {
-    me () {
-      return this.$store.getters.getMe()
-    },
     page () {
       return parseInt(this.$route.query.page === undefined ? 1 : this.$route.query.page)
     }
