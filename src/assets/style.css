@@ -18,7 +18,7 @@ ul.navmenu {
     margin: 0px auto 30px;
     padding: 0px;
     border-bottom: 1px solid #CCC;
-    background: #7e0707;
+    background: #6c0707;
 }
 
 ul.navmenu li {
@@ -145,6 +145,8 @@ ul.navmenu >li> a {
     ul.navmenu>li {
         display: block;
         border-top: 1px solid #CFF;
+        border-left: none;
+        border-right: none;
     }
     ul.navmenu>li>.carret {
         left: auto;
@@ -190,7 +192,7 @@ ul.navmenu >li> a {
         left: -15px;
         right: -15px;
         text-align: center;
-        background: #260303;
+        background: #000;
     }
 }
 
@@ -309,6 +311,7 @@ ul.navmenu >li> a {
     box-shadow: 0px 0px 5px 1px #CCC;
     color: #FFF;
     border: 3px solid #000;
+    z-index: 3001;
 }
 
 #profile .profile-box {
@@ -316,8 +319,8 @@ ul.navmenu >li> a {
     top: 0;
     right: 0;
     bottom: 0;
-    left: 0;
     z-index: 3001;
+    left: 0;
     background: rgba(0, 0, 0, 0.75);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
@@ -402,6 +405,7 @@ ul.navmenu >li> a {
         margin: 0px -15px;
         padding: 15px;
         background: #2e0b0b;
+        color: #999;
     }
     .sidebar:before,
     .sidebar:after {
