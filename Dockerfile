@@ -23,7 +23,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends --no-install-su
     nano \
     wget \
     zip \
-    unzip
+    unzip \
+    cron \
+    supervisor
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 
