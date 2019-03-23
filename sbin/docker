@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+printenv | more | grep ^VILOVEUL_ > /viloveul/.env
+npm run build --prefix=/viloveul
+exec nginx -g 'daemon off;'
