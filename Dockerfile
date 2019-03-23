@@ -4,7 +4,7 @@ MAINTAINER Fajrul Akbar Zuhdi<fajrulaz@gmail.com>
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests \
+ENV BASICDEP \
     apt-utils \
     lsb-release \
     gnupg \
@@ -27,25 +27,35 @@ RUN apt-get update && apt-get install -y --no-install-recommends --no-install-su
     cron \
     supervisor
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends --no-install-suggests $BASICDEP && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests nodejs nginx
+ADD . /viloveul
 
-ADD . /app
+WORKDIR /viloveul
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends --no-install-suggests nginx && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -f /etc/nginx/sites-enabled/* && \
+    cp /viloveul/config/nginx.conf /etc/nginx/conf.d/default.conf && \
+    mkdir -p /var/log/supervisor && \
+    touch /viloveul/.env
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends --no-install-suggests nodejs && \
+    rm -rf /var/lib/apt/lists/*
 
 # WORK
-RUN npm install --prefix /app && \
+RUN npm install --prefix /viloveul && \
     npm cache clean --force && \
     apt-get autoremove -y && \
-    rm -f /etc/nginx/sites-enabled/* && \
-    rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/* && \
-    mkdir -p /app/dist && \
-    touch /app/dist/index.html && \
-    cp /app/nginx.conf  /etc/nginx/conf.d/default.conf
-
-WORKDIR /app
+    mkdir -p /viloveul/dist && \
+    touch /viloveul/dist/index.html
 
 EXPOSE 19913
 
-CMD ["sh", "/app/run.sh"]
+CMD ["sh", "/viloveul/sbin/docker"]

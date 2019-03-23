@@ -1,6 +1,6 @@
-.git
-.env
-node_modules
-dist
-package-lock.json
-npm-debug.log
+/.git
+/.env
+/node_modules
+/dist
+/package-lock.json
+/npm-debug.log
