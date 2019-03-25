@@ -4,8 +4,8 @@
     <div class="widget-body">
       <ul>
         <li v-for="(item, index) in results" :key="'widget-recent-post-' + index">
-          <router-link :to="getPermalink(item.attributes)">
-            {{ item.attributes.title }}
+          <router-link :to="getPermalink(item)">
+            {{ item.title }}
           </router-link>
         </li>
       </ul>

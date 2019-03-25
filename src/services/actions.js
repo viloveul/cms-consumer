@@ -111,7 +111,7 @@ export default {
       await context.dispatch('resetMe')
     } else {
       await http.get('/user/me').then(res => {
-        context.commit('setMe', res.data.data.attributes)
+        context.commit('setMe', res.data.data)
         context.commit('setPrivileges', res.data.meta.privileges)
       }).catch(async (e) => {
         await context.dispatch('resetMe')
