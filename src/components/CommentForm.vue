@@ -39,7 +39,7 @@
 export default {
   props: {
     post_id: {
-      type: Number,
+      type: String,
       required: true
     }
   },

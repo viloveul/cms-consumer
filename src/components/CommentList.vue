@@ -34,7 +34,7 @@ export default {
   },
   props: {
     post_id: {
-      type: Number,
+      type: String,
       required: true
     },
     page: {
@@ -47,7 +47,7 @@ export default {
     },
     order: {
       type: String,
-      default: 'id'
+      default: 'created_at'
     },
     sort: {
       type: String,
@@ -65,9 +65,7 @@ export default {
       }
     })
 
-    this.comments = res.data.map(comment => {
-      return comment.attributes
-    })
+    this.comments = res.data
     this.pages = Math.ceil(res.meta.total / res.meta.size) || 1
   },
   methods: {

@@ -27,7 +27,7 @@
         v-if="post.comment_enabled && isFormatPost(post) === true"
         v-on:paginate="handlePaginate"
         :key="'comments-' + keyList"
-        :post_id="parseInt(post.id)"
+        :post_id="post.id"
         :page="page"
         :class="'comment-list'"
       >
@@ -36,7 +36,7 @@
       <CommentForm
         v-if="post.comment_enabled && isFormatPost(post) === true"
         v-on:sent="reloadComments"
-        :post_id="parseInt(post.id)"
+        :post_id="post.id"
         :class="'comment-form'"
       >
       </CommentForm>
@@ -80,9 +80,9 @@ export default {
     let res = await this.$store.dispatch('fetchPostDetail', {
       slug: this.$route.path.split('/').pop()
     })
-    this.post = res.data.attributes
-    this.author = res.data.relationships.author.data || {}
-    this.tags = res.data.relationships.tags.data || []
+    this.post = res.data
+    this.author = res.data.author || {}
+    this.tags = res.data.tags || []
     this.$store.dispatch('updateTitle', this.post.title)
     this.$store.dispatch('updateDescription', this.post.description)
     if (this.getPermalink(this.post) !== this.$route.path) {
