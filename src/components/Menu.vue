@@ -67,7 +67,7 @@ export default {
     },
     async clickMenu (url) {
       this.handleCollapse()
-      if (url.search(/^https?:\/\//) !== -1) {
+      if (url !== null && url.search(/^https?:\/\//) !== -1) {
         window.location.href = url
       } else {
         await this.$router.push(url)

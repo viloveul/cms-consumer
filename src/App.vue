@@ -43,7 +43,8 @@ export default {
         url: '/blog'
       }
     ]
-    this.menus = await this.$store.dispatch('fetchOption', {name: 'menu-navmenu'}) || defaults
+    let opt = await this.$store.dispatch('fetchOption', {name: 'menu-navmenu'})
+    this.menus = opt.items || defaults
     await this.$store.dispatch('fetchOption', {name: 'brand'})
     await this.$store.dispatch('fetchOption', {name: 'description'})
     await this.$store.dispatch('fetchWidget', {type: 'sidebar'})
