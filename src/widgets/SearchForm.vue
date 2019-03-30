@@ -32,7 +32,7 @@ export default {
     handleSearch () {
       if (this.search.length > 0) {
         this.$router.push({
-          path: '/blog',
+          path: '/',
           query: {
             search: this.search
           }

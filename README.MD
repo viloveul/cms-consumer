@@ -67,7 +67,7 @@ try {
         for ($a = 0; $a < $title->length; $a++) {
             $title->item($a)->nodeValue = 'Author: ' . $match[1];
         }
-    } elseif ($path !== 'blog' && !empty($path)) {
+    } elseif (!empty($path)) {
         $paths = preg_split('/\//', $path, -1, PREG_SPLIT_NO_EMPTY);
         $handler = curl_init($api . '/blog/detail/' . end($paths));
         curl_setopt($handler, CURLOPT_RETURNTRANSFER, 1);

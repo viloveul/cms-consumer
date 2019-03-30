@@ -39,12 +39,12 @@ export default {
         url: '/'
       },
       {
-        label: 'Blog',
-        url: '/blog'
+        label: 'Components',
+        url: 'https://viloveul.github.io'
       }
     ]
     let opt = await this.$store.dispatch('fetchOption', {name: 'menu-navmenu'})
-    this.menus = opt.items || defaults
+    this.menus = opt === null ? defaults : (opt.items || defaults)
     await this.$store.dispatch('fetchOption', {name: 'brand'})
     await this.$store.dispatch('fetchOption', {name: 'description'})
     await this.$store.dispatch('fetchWidget', {type: 'sidebar'})
