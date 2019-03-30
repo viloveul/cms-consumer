@@ -76,11 +76,11 @@ try {
         $result = json_decode($response, false);
 
         for ($a = 0; $a < $title->length; $a++) {
-            $title->item($a)->nodeValue = $result->data->attributes->title;
+            $title->item($a)->nodeValue = $result->data->title;
         }
 
         for ($b = 0; $b < $meta->length; $b++) {
-            $meta->item($b)->setAttribute('content', $result->data->attributes->description);
+            $meta->item($b)->setAttribute('content', $result->data->description);
         }
     }
 } catch (Exception $e) {
