@@ -10,7 +10,6 @@ import App from '@/App'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'nprogress/nprogress.css'
 import '@/assets/style.css'
-import '@/assets/viloveul.css'
 
 Vue.config.productionTip = false
 

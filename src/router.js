@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import config from '@/common/config'
 
-import Viloveul from '@/pages/Viloveul'
 import Blog from '@/pages/Blog'
 import Archive from '@/pages/Archive'
 import Author from '@/pages/Author'
@@ -13,10 +12,6 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    component: Viloveul
-  },
-  {
-    path: '/blog',
     component: Blog
   },
   {

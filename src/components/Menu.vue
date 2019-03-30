@@ -8,7 +8,7 @@
       >
         {{ opened === index && closeAll === false ? '-' : '+' }}
       </span>
-      <a href="#" v-on:click.prevent="clickMenu(item.url)">
+      <a :href="item.url" v-on:click.prevent="clickMenu(item.url)">
         {{ item.label }}
       </a>
       <menu-item
