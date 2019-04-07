@@ -3,11 +3,11 @@
 
 clone this repository
 ```bash
-git clone https://github.com/zafex/viloveul-cms-theme.git
+git clone https://github.com/zafex/viloveul-cms-enduser.git
 ```
 lakukan proses instalasi
 ```bash
-cd viloveul-cms-theme
+cd viloveul-cms-enduser
 npm install
 ```
 buat file bernama .env di root folder yang berisi minimal:
