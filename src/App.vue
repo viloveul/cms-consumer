@@ -1,5 +1,5 @@
 <template>
-  <div :class="containerClasses">
+  <div :class="'container'">
     <div class="navmenu-wrapper" v-if="menus.length > 0">
       <Menu
         :items="menus"
@@ -52,9 +52,6 @@ export default {
     await this.$store.dispatch('fetchMe')
   },
   computed: {
-    containerClasses () {
-      return this.$store.getters.getContainerClasses()
-    },
     errors () {
       return this.$store.getters.getErrors()
     }

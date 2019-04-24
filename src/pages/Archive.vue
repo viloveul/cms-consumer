@@ -28,7 +28,7 @@
             Read more...
           </router-link>
           <div class="comments-count" v-if="post.comment_enabled && isFormatPost(post) === true">
-            {{ post.comments_count }} Comments
+            {{ post.count_comments }} Comments
           </div>
         </footer><!-- .entry-footer -->
       </div><!-- .content-wrapper -->

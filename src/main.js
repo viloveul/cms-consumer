@@ -42,7 +42,6 @@ http.interceptors.response.use(
 router.beforeEach(async (to, from, next) => {
   if (to.path !== from.path) {
     await store.dispatch('resetErrors')
-    await store.dispatch('resetContainerClasses')
     await store.commit('setBreadcrumbs', [])
     await store.dispatch('updateTitle', null)
     await store.dispatch('updateDescription', null)

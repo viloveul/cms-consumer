@@ -1,6 +1,12 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: black;
+    background-image: url("~@/assets/night-landscape.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 div.navmenu-shadow {
@@ -185,6 +191,7 @@ ul.navmenu >li> a {
 }
 .main .credit p a {
     text-decoration: none;
+    color: #ecd1b0;
 }
 
 @media (max-width: 768px) {
@@ -197,7 +204,15 @@ ul.navmenu >li> a {
 }
 
 .content-wrapper {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.content-wrapper:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .content-wrapper:before,
@@ -249,6 +264,9 @@ ul.navmenu >li> a {
     display: block;
     margin: 0px auto;
 }
+.content-wrapper a {
+    color: #ecd1b0;
+}
 
 
 /**
@@ -256,12 +274,15 @@ ul.navmenu >li> a {
  */
 
 .comment-list .comment {
-    border: 1px solid #EEE;
-    padding: 15px 15px 0px;
-    margin-bottom: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #ccc;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 .comment-list .comment:nth-child(odd) {
-    background-color: #FCFCFC;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .comment-wrapper>.comment-header {
@@ -282,10 +303,11 @@ ul.navmenu >li> a {
  */
 
 .comment-form {
-    border: 1px solid #CCC;
-    padding: 15px 15px 0px;
+    border-top: 1px solid #CCC;
+    padding: 15px;
     margin-bottom: 15px;
-    background-color: #EEE;
+    background-color: rgba(126, 126, 126, 0.3);
+    color: white;
 }
 
 
@@ -376,14 +398,15 @@ ul.navmenu >li> a {
 
 .widget {
 	box-sizing: border-box;
-	border: 1px solid #CCC;
 	margin-bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #f9cfcf;
 }
 .widget-title {
+    background-color: rgba(0, 0, 0, 0.4);
 	padding: 10px 15px;
-	border-bottom: 1px solid #CCC;
 	display: block;
-	background: #EEE;
+    color: #FFF;
 }
 .widget-body {
 	padding: 10px 15px;
@@ -396,35 +419,13 @@ ul.navmenu >li> a {
 .widget-body .carret {
 	display: none;
 }
+.widget a {
+    color: #ecd1b0;
+}
 
-/**
- * SMALL WIDTH
- */
-@media (max-width: 768px) {
-    .sidebar {
-        margin: 0px -15px;
-        padding: 15px;
-        background: #2e0b0b;
-        color: #999;
-    }
-    .sidebar:before,
-    .sidebar:after {
-        box-sizing: border-box;
-        content: " ";
-        display: table;
-    }
-    .sidebar .widget {
-        border: none;
-    }
-    .sidebar .widget .widget-title {
-        font-size: 18px;
-        background: none;
-        font-weight: bold;
-        color: #CCC;
-    }
-    .sidebar .widget .widget-title,
-    .sidebar .widget .widget-body {
-        padding-left: 0;
-        padding-right: 0;
-    }
+.pagination * {
+    border: none !important;
+}
+.pagination a {
+    background: rgba(0, 0, 0, 0.4) !important;
 }

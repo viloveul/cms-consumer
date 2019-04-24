@@ -4,9 +4,6 @@ import config from '@/common/config'
 import initial from '@/common/initial'
 
 export default {
-  resetContainerClasses: async (context, payload) => {
-    context.state.containerClasses = initial.containerClasses
-  },
   resetErrors: async (context, payload) => {
     context.state.errors = []
   },

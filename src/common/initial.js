@@ -1,5 +1,4 @@
 export default {
-  containerClasses: 'container',
   showNavbar: true,
   redirect: '/',
   me: {
