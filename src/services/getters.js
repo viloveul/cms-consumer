@@ -1,7 +1,4 @@
 export default {
-  getContainerClasses: (state) => () => {
-    return state.containerClasses
-  },
   getShowNavbar: (state) => () => {
     return state.showNavbar
   },

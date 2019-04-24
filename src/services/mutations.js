@@ -1,9 +1,6 @@
 import initial from '@/common/initial'
 
 export default {
-  setContainerClasses: async (state, payload) => {
-    state.containerClasses = payload
-  },
   setShowNavbar: async (state, payload) => {
     state.showNavbar = payload
   },
