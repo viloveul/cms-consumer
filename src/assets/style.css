@@ -24,7 +24,7 @@ ul.navmenu {
     margin: 0px auto 30px;
     padding: 0px;
     border-bottom: 1px solid #CCC;
-    background: #6c0707;
+    background: rgba(108, 7, 7, 0.75);
 }
 
 ul.navmenu li {
@@ -46,7 +46,7 @@ ul.navmenu ul {
     left: 0;
     z-index: 1;
     border: 1px solid #990;
-    background: #FFF;
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 5px;
     box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, .5);
 }
@@ -87,14 +87,6 @@ ul.navmenu li>.carret {
 ul.navmenu>li {
     display: inline-block;
     margin: 0px auto;
-    border-left: 1px solid #000;
-    border-right: 1px solid #990;
-}
-ul.navmenu>li:first-child {
-    border-left: none;
-}
-ul.navmenu>li:last-child {
-    border-right: none;
 }
 ul.navmenu>li>ul {
     left: -1px;

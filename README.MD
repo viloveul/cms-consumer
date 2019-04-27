@@ -1,5 +1,5 @@
 
-# Viloveul CMS (UI Theme)
+# Viloveul CMS (EndUser UI)
 
 clone this repository
 ```bash
@@ -18,7 +18,7 @@ VILOVEUL_DASHBOARD_URL=http://your-viloveul-cms-dashboard
 jalankan:
 ```bash
 npm run dev
-## bukan http://localhost:8085
+## buka http://localhost:19913
 ```
 
 @see https://github.com/zafex/viloveul-cms-dashboard

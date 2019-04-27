@@ -20,11 +20,6 @@
 	            "label": "Category",
 	            "format": "category",
 	            "name": "category"
-	        }],
-	        "menus": [{
-	          "name": "navmenu",
-	          "format": "standar",
-	          "label": "Nav Menu"
 	        }]
 	    },
 	    "features": {
@@ -34,6 +29,9 @@
 	        "banner": {
 	            "width": 960,
 	            "height": 200
+	        },
+	        "menu": {
+	        	"navmenu": "Nav Menu"
 	        }
 	    }
 	}
