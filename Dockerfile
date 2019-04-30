@@ -27,7 +27,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends --no-install-suggests nginx && \
     rm -rf /var/lib/apt/lists/* && \
     rm -f /etc/nginx/sites-enabled/* && \
-    cp /viloveul/config/nginx.conf /etc/nginx/conf.d/default.conf && \
+    cp /viloveul/profile/nginx.conf /etc/nginx/conf.d/default.conf && \
     mkdir -p /var/log/supervisor && \
     touch /viloveul/.env
 
@@ -44,4 +44,4 @@ RUN apt-get autoremove -y && \
 
 EXPOSE 19913
 
-CMD ["sh", "/viloveul/sbin/docker"]
+CMD ["sh", "/viloveul/sbin/dockerc"]
