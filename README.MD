@@ -1,13 +1,13 @@
 
-# Viloveul CMS (EndUser UI)
+# Viloveul CMS (Consumer UI)
 
 clone this repository
 ```bash
-git clone https://github.com/zafex/viloveul-cms-enduser.git
+git clone https://github.com/zafex/viloveul-cms-consumer.git
 ```
 lakukan proses instalasi
 ```bash
-cd viloveul-cms-enduser
+cd viloveul-cms-consumer
 npm install
 ```
 buat file bernama .env di root folder yang berisi minimal:
