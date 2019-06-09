@@ -1,5 +1,5 @@
 <template>
-  <Layout :sidebar="isFormatPost(post) === true" :class="'main'">
+  <Layout :sidebar="isFormatPost(post) === true" :class="'container'">
     <template slot="content">
       <div class="content-wrapper">
         <header class="entry-header">

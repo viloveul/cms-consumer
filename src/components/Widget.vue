@@ -17,13 +17,11 @@ import Archive from '@/widgets/Archive'
 import Menu from '@/widgets/Menu'
 import RecentPost from '@/widgets/RecentPost'
 import RecentComment from '@/widgets/RecentComment'
-import SearchForm from '@/widgets/SearchForm'
 
 export default {
   components: {
     WidgetArchive: Archive,
     WidgetMenu: Menu,
-    WidgetSearchForm: SearchForm,
     WidgetRecentPost: RecentPost,
     WidgetRecentComment: RecentComment
   },
