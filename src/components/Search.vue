@@ -1,14 +1,13 @@
 <template>
-  <div class="widget widget-search-form">
-    <div class="widget-title">Search Form</div>
-    <div class="widget-body">
-      <form v-on:submit.prevent="handleSearch">
-        <div class="form-group">
-          <input type="text" class="form-control" v-model="search">
-        </div>
+  <div>
+    <form v-on:submit.prevent="handleSearch">
+      <div class="search-form">
+        <input type="text" class="form-control" v-model="search" placeholder="Put Keyword..">
+      </div>
+      <div class="search-button">
         <button type="submit" class="btn btn-info">Search</button>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -17,11 +16,6 @@
 import helpers from '@/services/helpers'
 
 export default {
-  props: {
-    results: {
-      type: Array
-    }
-  },
   mounted () {
     if (this.$route.query.search !== undefined) {
       this.search = this.$route.query.search

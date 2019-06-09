@@ -8,7 +8,7 @@ export default {
     context.state.errors = []
   },
   resetMe: async (context, payload) => {
-    await window.localStorage.removeItem('vtoken')
+    await window.localStorage.removeItem('viloveul:token')
     await context.commit('setMe', {...initial.me})
     await context.commit('setPrivileges', [])
   },
@@ -81,14 +81,14 @@ export default {
   },
   readToken: async (context, payload) => {
     let dashboardUrl = config.getDashboardUrl()
-    let token = window.localStorage.getItem('vtoken') || null
+    let token = window.localStorage.getItem('viloveul:token') || null
     return new Promise((resolve, reject) => {
       if (token === null) {
         context.dispatch('channel', {origin: dashboardUrl, cmd: 'viloveul.read'})
         let windowListener = (event) => {
           if (event.origin === dashboardUrl) {
             if (event.data.status === 'success' && event.data.value !== undefined) {
-              window.localStorage.setItem('vtoken', event.data.value)
+              window.localStorage.setItem('viloveul:token', event.data.value)
               resolve(event.data.value)
             } else {
               resolve(null)

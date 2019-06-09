@@ -8,9 +8,6 @@
         <Widget :className="'sidebar'" :type="'sidebar'" />
       </div>
     </div>
-    <div class="credit">
-      <p>Powered by <a href="https://www.viloveul.com/" target="_blank"><abbr title="Viloveul">Viloveul.com</abbr></a></p>
-    </div>
   </div>
 </template>
 
