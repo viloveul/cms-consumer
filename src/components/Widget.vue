@@ -26,10 +26,6 @@ export default {
     WidgetRecentComment: RecentComment
   },
   props: {
-    type: {
-      type: String,
-      default: 'sidebar'
-    },
     className: {
       type: String,
       default: 'sidebar'
@@ -47,7 +43,7 @@ export default {
   },
   computed: {
     items () {
-      return this.$store.getters.getWidget(this.type)
+      return this.$store.getters.getWidgets()
     }
   }
 }

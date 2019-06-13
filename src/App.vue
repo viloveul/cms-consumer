@@ -17,9 +17,9 @@
       <div :class="'container'">
         <div :class="'col-sm-6'">
           <h1 :class="'site-title'" :rel="'title'">
-            <router-link :to="'/'">{{ brand }}</router-link>
+            <router-link :to="'/'">{{ options.brand }}</router-link>
           </h1>
-          <p :class="'site-description'" :rel="'description'">{{ description }}</p>
+          <p :class="'site-description'" :rel="'description'">{{ options.description }}</p>
         </div>
         <div :class="'col-sm-6'">
           <Search :class="'search'" :rel="'search-form'"></Search>
@@ -61,27 +61,20 @@ export default {
     Menu
   },
   async mounted () {
-    let defaults = [
-      {
-        label: 'Home',
-        url: '/'
-      },
-      {
-        label: 'Components',
-        url: 'https://viloveul.github.io'
-      }
-    ]
-    let opt = await this.$store.dispatch('fetchOption', {name: 'menu-navmenu'})
-    this.menus = opt === null ? defaults : (opt.items || defaults)
-    this.brand = await this.$store.dispatch('fetchOption', {name: 'brand'})
-    this.description = await this.$store.dispatch('fetchOption', {name: 'description'})
-    await this.$store.dispatch('fetchWidget', {type: 'sidebar'})
-    await this.$store.dispatch('fetchOption', {name: 'contents'})
+    await this.$store.dispatch('loadMenus', {name: 'navmenu'})
+    await this.$store.dispatch('loadWidgets', {type: 'sidebar'})
+    await this.$store.dispatch('loadOptions')
     await this.$store.dispatch('fetchMe')
   },
   computed: {
     errors () {
       return this.$store.getters.getErrors()
+    },
+    options () {
+      return this.$store.getters.getOptions()
+    },
+    menus () {
+      return this.$store.getters.getMenus()
     }
   },
   methods: {
@@ -95,9 +88,6 @@ export default {
   },
   data () {
     return {
-      brand: 'Viloveul',
-      description: 'Just another simple cms',
-      menus: [],
       menuKey: 'navmenu',
       menuOpened: false
     }

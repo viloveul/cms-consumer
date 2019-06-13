@@ -4,23 +4,24 @@ export default {
   setShowNavbar: async (state, payload) => {
     state.showNavbar = payload
   },
-  setOption: async (state, payload) => {
+  setMenus: async (state, payload) => {
+    state.menus = payload
+  },
+  setOptions: async (state, payload) => {
     for (let i in payload) {
-      if (payload[i] !== null) {
-        if (typeof payload[i] !== 'string') {
-          state.options[i] = payload[i]
-        } else if (payload[i].length > 0) {
-          state.options[i] = payload[i]
+      if (state.options[i] !== undefined) {
+        if (payload[i] !== null) {
+          if (typeof payload[i] !== 'string') {
+            state.options[i] = payload[i]
+          } else if (payload[i].length > 0) {
+            state.options[i] = payload[i]
+          }
         }
       }
     }
   },
-  setWidget: async (state, payload) => {
-    for (let i in payload) {
-      if (payload[i] !== null) {
-        state.widgets[i] = payload[i]
-      }
-    }
+  setWidgets: async (state, payload) => {
+    state.widgets = payload
   },
   setToken: async (state, payload) => {
     state.token = payload

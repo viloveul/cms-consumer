@@ -13,15 +13,15 @@ export default {
     await context.commit('setPrivileges', [])
   },
   updateTitle: async (context, content) => {
-    let val = content === null ? context.getters.getOption('description') : content
-    window.document.title = context.getters.getOption('brand') + ' : ' + val
+    let val = content === null ? context.state.options.description : content
+    window.document.title = context.state.options.brand + ' : ' + val
   },
   updateDescription: async (context, content) => {
     let metas = window.document.querySelectorAll('[viloveul-controlled-description]')
     for (let i = 0; i < metas.length; i++) {
       metas[i].parentNode.removeChild(metas[i])
     }
-    let val = content === null ? context.getters.getOption('description') : content
+    let val = content === null ? context.state.options.description : content
 
     let description = document.createElement('meta')
     description.setAttribute('name', 'description')
@@ -115,19 +115,20 @@ export default {
       })
     }
   },
-  fetchWidget: async ({commit}, payload) => {
+  loadWidgets: async ({commit}, payload) => {
     let res = await http.get('/widget/load/' + payload.type)
-    await commit('setWidget', {
-      [payload.type]: res.data.data
-    })
+    await commit('setWidgets', res.data.data)
     return res.data.data
   },
-  fetchOption: async ({ commit }, payload) => {
-    let res = await http.get('/setting/' + payload.name)
-    await commit('setOption', {
-      [payload.name]: res.data.data.option
-    })
-    return res.data.data.option
+  loadMenus: async ({ commit }, payload) => {
+    let res = await http.get('/menu/load/' + payload.name)
+    await commit('setMenus', res.data.data)
+    return res.data.data
+  },
+  loadOptions: async ({ commit }, payload) => {
+    let res = await http.get('/setting')
+    await commit('setOptions', res.data.data)
+    return res.data.data
   },
   fetchBlogPosts: async (context, payload) => {
     let res = await http.get('/blog/index', {

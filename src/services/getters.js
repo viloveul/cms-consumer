@@ -2,11 +2,11 @@ export default {
   getShowNavbar: (state) => () => {
     return state.showNavbar
   },
-  getOption: (state) => (name, $default = null) => {
-    if (typeof state.options[name] === 'string' && state.options[name].length > 0) {
-      return state.options[name]
-    }
-    return (typeof state.options[name] !== 'undefined' && state.options[name] !== null) ? state.options[name] : $default
+  getMenus: (state) => () => {
+    return state.menus
+  },
+  getOptions: (state) => () => {
+    return state.options
   },
   getToken: (state) => () => {
     return state.token
@@ -29,11 +29,7 @@ export default {
   getRedirect: (context) => () => {
     return context.redirect
   },
-  getWidget: (context) => (type = 'sidebar') => {
-    if (context.widgets[type] !== undefined) {
-      return context.widgets[type]
-    } else {
-      return []
-    }
+  getWidgets: (context) => () => {
+    return context.widgets
   }
 }
