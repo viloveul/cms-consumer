@@ -5,7 +5,7 @@
         <slot name="content"></slot>
       </div>
       <div class="col-sm-4" v-if="sidebar === true">
-        <Widget :className="'sidebar'" :type="'sidebar'" />
+        <Widget :className="'sidebar'" />
       </div>
     </div>
   </div>

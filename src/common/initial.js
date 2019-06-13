@@ -54,9 +54,17 @@ export default {
       comment: false
     }
   },
-  widgets: {
-    sidebar: []
-  },
+  widgets: [],
+  menus: [
+    {
+      label: 'Home',
+      url: '/'
+    },
+    {
+      label: 'Components',
+      url: 'https://viloveul.github.io'
+    }
+  ],
   breadcrumbs: [],
   errors: []
 }

@@ -5,14 +5,11 @@ body {
     font-size: 12pt;
     line-height: 150%;
 }
-
 div.wrapper {
     padding: 0;
     margin: 0 auto;
     box-sizing: border-box;
 }
-
-
 /**
  * HEADER
  */
@@ -26,7 +23,6 @@ div.wrapper {
     display: block;
     height: 100%;
 }
-
 .main-header h1.site-title {
     margin-top: 10px;
 }
@@ -36,37 +32,31 @@ div.wrapper {
     text-shadow: 0 1px 5px black;
     text-decoration: none;
 }
-
 .main-header p.site-description {
     font-weight: bold;
     font-size: small;
     color: white;
     font-style: italic;
 }
-
 .main-header .search {
     padding: 0;
     display: block;
     margin: 0px 0px 0px auto;
     max-width: 300px;
 }
-
 .main-header .search form {
     display: block;
     margin-top: 15px;
     margin-bottom: 15px;
     padding: 0;
 }
-
 .main-header .search .search-form {
     margin-top: 5px;
     margin-bottom: 5px;
 }
-
 .main-header .search .search-button {
     text-align: right;
 }
-
 @media (max-width: 768px) {
     .main-header .search {
         margin: 0px auto;
@@ -76,7 +66,6 @@ div.wrapper {
         text-align: inherit;
     }
 }
-
 .main-header .navmenu-shadow {
     position: fixed;
     top: 0;
@@ -85,7 +74,6 @@ div.wrapper {
     bottom: 0;
     z-index: 2999;
 }
-
 .main-header .menu {
     border-bottom: 1px solid #ce5d5d;
     background: rgba(36, 12, 12, 0.75);
@@ -93,7 +81,6 @@ div.wrapper {
     text-transform: uppercase;
     font-size: 8pt;
 }
-
 .main-header ul.navmenu {
     position: relative;
     z-index: 3000;
@@ -102,18 +89,15 @@ div.wrapper {
     text-align: left;
     padding: 0px;
 }
-
 .main-header ul.navmenu li {
     position: relative;
     padding: 0px 10px;
 }
-
 .main-header ul.navmenu li a {
     display: block;
     padding: 10px 20px;
     text-decoration: none;
 }
-
 .main-header ul.navmenu ul {
     display: block;
     position: absolute;
@@ -127,26 +111,21 @@ div.wrapper {
     border-radius: 5px;
     box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, .5);
 }
-
 .main-header ul.navmenu ul.open {
     visibility: visible;
 }
-
 .main-header ul.navmenu ul li {
     display: block;
     border-bottom: 1px solid #990;
 }
-
 .main-header ul.navmenu ul li:last-child {
     border-bottom: none;
 }
-
 .main-header ul.navmenu ul ul {
     left: 100%;
     margin-left: 15px;
-    top: -11px;
+    top: -6px;
 }
-
 .main-header ul.navmenu li>.carret {
     display: inline;
     cursor: pointer;
@@ -161,18 +140,15 @@ div.wrapper {
     text-align: center;
     border-radius: 100%;
 }
-
 .main-header ul.navmenu>li {
     display: inline-block;
     margin: 0px auto;
 }
-
 .main-header ul.navmenu>li>ul {
     left: -1px;
     top: 100%;
     margin-top: 10px;
 }
-
 .main-header ul.navmenu>li>ul:after {
     width: 0;
     height: 0;
@@ -184,7 +160,6 @@ div.wrapper {
     left: 10px;
     position: absolute;
 }
-
 .main-header ul.navmenu>li>ul ul:after {
     width: 0;
     height: 0;
@@ -192,33 +167,28 @@ div.wrapper {
     border-right: 7px solid #990;
     border-bottom: 7px solid transparent;
     content: " ";
-    top: 25px;
+    top: 20px;
     left: -7px;
     position: absolute;
 }
-
 .main-header ul.navmenu>li>.carret {
     left: 5px;
     top: 16px;
     color: #EEE;
     border-radius: 100%;
 }
-
 .main-header ul.navmenu li>.carret:hover {
     background: #000;
     color: #FFF;
 }
-
 .main-header ul.navmenu>li>.carret+a {
     padding-left: 30px;
 }
-
 .main-header ul.navmenu>li>a {
     padding: 15px 20px;
     font-weight: bold;
     color: #EEE;
 }
-
 @media (max-width: 768px) {
     .main-header ul.navmenu {
         margin-left: -15px;
@@ -249,10 +219,10 @@ div.wrapper {
         display: none;
     }
 }
-
 /**
  * FOOTER
  */
+
 .main-footer .credit {
     border-top: 1px solid #CCCCCC;
     background: white;
@@ -263,21 +233,19 @@ div.wrapper {
     justify-content: center;
     align-items: center;
 }
-
 .main-footer .credit p {
     margin: 0 auto;
     color: #111;
     font-size: 10pt;
 }
-
 .main-footer .credit p a {
     text-decoration: none;
     color: #926126;
 }
-
 /**
  * CONTENT
  */
+
 .main-content {
     padding: 0px;
     margin: 0px auto;
@@ -288,18 +256,15 @@ div.wrapper {
     background-color: white;
     color: #333333;
 }
-
 .content-wrapper:before, .content-wrapper:after {
     clear: both;
     display: block;
     content: " ";
     width: 100%;
 }
-
 .content-wrapper a {
     color: #986a32;
 }
-
 .pagination {
     margin-top: 0px;
     margin-bottom: 10px;
@@ -307,35 +272,30 @@ div.wrapper {
 .pagination * {
     /*border: none !important;*/
 }
-
 .pagination a {
     background: white;
 }
-
 /**
  * ENTRY OF CONTENT
  */
+
 .entry-header .entry-title {
     margin-top: 0px;
 }
-
 .entry-header .posted {
     font-size: 10pt;
     margin-bottom: 10px;
 }
-
 .entry-content:after {
     clear: both;
     display: block;
     content: " ";
     width: 100%;
 }
-
 .entry-content figure.image {
     border: 1px solid #CCC;
     position: relative;
 }
-
 .entry-content figure.image-style-align-right {
     max-width: 50%;
     float: right;
@@ -343,7 +303,6 @@ div.wrapper {
     margin-left: 15px;
     margin-bottom: 15px;
 }
-
 .entry-content figure.image-style-align-left {
     max-width: 50%;
     float: left;
@@ -351,14 +310,11 @@ div.wrapper {
     margin-right: 15px;
     margin-bottom: 15px;
 }
-
 .entry-content figure.image>img {
     max-width: 100%;
     display: block;
     margin: 0px auto;
 }
-
-
 /**
  * Comment List
  */
@@ -371,20 +327,15 @@ div.wrapper {
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-
 .comment-wrapper>.comment-header {
     margin-bottom: 15px;
 }
-
 .comment-wrapper>.comment-header h4 {
     margin: 0px auto 5px;
 }
-
 .comment-wrapper>.comment-body {
     margin-bottom: 15px;
 }
-
-
 /**
  * Comment Form
  */
@@ -396,8 +347,6 @@ div.wrapper {
     background-color: white;
     color: #222;
 }
-
-
 /**
  * PROFILE
  */
@@ -405,7 +354,6 @@ div.wrapper {
 #profile {
     /* initial */
 }
-
 #profile .open-handler {
     cursor: pointer;
     position: fixed;
@@ -422,7 +370,6 @@ div.wrapper {
     border: 3px solid #000;
     z-index: 3001;
 }
-
 #profile .profile-box {
     position: fixed;
     top: 0;
@@ -435,7 +382,6 @@ div.wrapper {
     -webkit-overflow-scrolling: touch;
     outline: 0;
 }
-
 #profile .profile-box .profile-body {
     position: relative;
     transition: transform .3s ease-out, -webkit-transform .3s ease-out;
@@ -446,7 +392,6 @@ div.wrapper {
     align-items: center;
     min-height: 100vh;
 }
-
 #profile .profile-box .profile-body .profile-content {
     background: #fff;
     border: 2px solid #CCC;
@@ -456,15 +401,12 @@ div.wrapper {
     margin: 50px;
     position: relative;
 }
-
 #profile .profile-box .profile-body .profile-content img {
     max-width: 100%;
 }
-
 #profile .profile-box .profile-body .profile-content ul {
     text-align: left;
 }
-
 #profile .profile-box .close-handler {
     position: absolute;
     right: -30px;
@@ -481,8 +423,6 @@ div.wrapper {
     display: flex;
     cursor: pointer;
 }
-
-
 /**
  * WIDGET
  */
@@ -493,28 +433,23 @@ div.wrapper {
     background-color: rgba(0, 0, 0, 0.1);
     color: #666;
 }
-
 .widget-title {
     background-color: #999;
     padding: 10px 15px;
     display: block;
     color: #FFF;
 }
-
 .widget-body {
     padding: 10px 15px;
 }
-
 .widget-body>* {
     margin: 0px;
     padding: 0px;
     list-style: none;
 }
-
 .widget-body .carret {
     display: none;
 }
-
 .widget a {
     color: #a3743a;
 }
