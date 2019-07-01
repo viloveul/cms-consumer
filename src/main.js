@@ -4,15 +4,12 @@ import App from '@/App'
 import { store, history } from '@/store'
 import { Router } from 'react-router'
 import { Provider } from 'react-redux'
-import { Route, Switch } from 'react-router-dom'
 import * as serviceWorker from '@/serviceWorker'
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Switch>
-        <Route path="/" component={App}/>
-      </Switch>
+      <App />
     </Router>
   </Provider>,
   document.getElementById('viloveul')

@@ -1,13 +1,16 @@
 import React from 'react'
 import qs from 'qs'
+import Pagination from '@/components/Pagination'
 import { connect } from 'react-redux'
 import Layout from '@/partials/Layout'
 import contentAction from '@/services/content.action'
 import Post from '@/partials/Post'
+import { withRouter } from 'react-router-dom'
 
 const mapStateToProps = state => {
   return {
-    data: state.content.posts.data
+    meta: state.content.posts.meta,
+    data: state.content.posts.data,
   }
 }
 
@@ -24,14 +27,28 @@ class Blog extends React.Component {
   state = {
     page: 1,
     order: 'created_at',
-    sort: 'desc'
+    sort: 'desc',
+    size: 10
   }
 
   componentDidMount = () => {
+    let q = {}
+    let page = this.state.page
+
+    if (this.props.location.search.length > 1) {
+      q = qs.parse(this.props.location.search.substr(1))
+    }
+
+    if (q.page !== undefined) {
+      page = parseInt(q.page)
+      this.setState({page})
+    }
+
     let filters = {
-        page: this.state.page,
-        order: this.state.order,
-        sort: this.state.sort
+      page: page || 1,
+      order: this.state.order,
+      sort: this.state.sort,
+      size: this.state.size
     }
 
     if (this.props.match.params.day !== undefined) {
@@ -42,11 +59,8 @@ class Blog extends React.Component {
       filters.search_created_at = this.props.match.params.year + '-'
     }
 
-    if (this.props.location.search.length > 1) {
-      let paths = qs.parse(this.props.location.search.substr(1))
-      if (paths.search !== undefined) {
-        filters.search_content = paths.search
-      }
+    if (q.search !== undefined) {
+      filters.search_content = q.search
     }
 
     this.props.fetchAll({
@@ -54,7 +68,7 @@ class Blog extends React.Component {
     })
   }
 
-  render () {
+  render = () => {
     return (
       <Layout>
         {
@@ -62,9 +76,11 @@ class Blog extends React.Component {
             return <Post key={index} detail={post}></Post>
           })
         }
+
+        <Pagination currentPage={this.state.page} totalItems={this.props.meta.total} pageSize={this.state.size}></Pagination>
       </Layout>
     )
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Blog)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Blog))

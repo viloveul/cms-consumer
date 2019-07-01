@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Route, Switch, Link } from 'react-router-dom'
+import { Route, Switch, Link, withRouter } from 'react-router-dom'
 
 import Blog from '@/pages/Blog'
-import Archive from '@/pages/Archive'
 import Author from '@/pages/Author'
+import Archive from '@/pages/Archive'
 import Singular from '@/pages/Singular'
 
-import Search from '@/components/Search'
 import Menu from '@/components/Menu'
+import Search from '@/components/Search'
 
 import authAction from '@/services/auth.action'
 import siteAction from '@/services/site.action'
@@ -57,7 +57,6 @@ class App extends React.Component {
       pathname: '/',
       search: '?search=' + v
     })
-    console.log(this.props.history)
   }
 
   render = () => {
@@ -113,4 +112,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
