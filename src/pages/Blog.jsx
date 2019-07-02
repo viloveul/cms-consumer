@@ -1,16 +1,16 @@
-import React from 'react'
 import qs from 'qs'
-import Pagination from '@/components/Pagination'
+import React from 'react'
+import Post from '@/partials/Post'
 import { connect } from 'react-redux'
 import Layout from '@/partials/Layout'
-import contentAction from '@/services/content.action'
-import Post from '@/partials/Post'
 import { withRouter } from 'react-router-dom'
+import Pagination from '@/components/Pagination'
+import contentAction from '@/services/content.action'
 
 const mapStateToProps = state => {
   return {
     meta: state.content.posts.meta,
-    data: state.content.posts.data,
+    data: state.content.posts.data
   }
 }
 
@@ -57,10 +57,8 @@ class Blog extends React.Component {
       filters.search_created_at = this.props.match.params.year + '-' + this.props.match.params.month + '-'
     } else if (this.props.match.params.year !== undefined) {
       filters.search_created_at = this.props.match.params.year + '-'
-    }
-
-    if (q.search !== undefined) {
-      filters.search_content = q.search
+    } else if (this.props.match.params.search !== undefined) {
+      filters.search_content = this.props.match.params.search
     }
 
     this.props.fetchAll({

@@ -1,3 +1,4 @@
+import qs from 'qs'
 import http from '@/http'
 
 const fetchBlogPosts = (payload) => {
@@ -140,6 +141,32 @@ const fetchCommentsFailed = (message) => {
   }
 }
 
+const sendComment = (payload) => {
+  return (dispatch) => {
+    return http.post('/comment/create', qs.stringify(payload || {})).then(res => {
+      dispatch(sendCommentSuccess(res.data))
+    }).catch(e => {
+      dispatch(sendCommentFailed(e))
+    })
+  }
+}
+
+const sendCommentSuccess = (data) => {
+  return {
+    type: 'SEND_COMMENT_SUCCESS',
+    payload: {...data}
+  }
+}
+
+const sendCommentFailed = (message) => {
+  return {
+    type: 'SEND_COMMENT_FAILED',
+    payload: {
+      message
+    }
+  }
+}
+
 export default {
   fetchBlogPosts,
   fetchBlogPostsSuccess,
@@ -155,5 +182,8 @@ export default {
   fetchDetailPostFailed,
   fetchComments,
   fetchCommentsSuccess,
-  fetchCommentsFailed
+  fetchCommentsFailed,
+  sendComment,
+  sendCommentSuccess,
+  sendCommentFailed
 }

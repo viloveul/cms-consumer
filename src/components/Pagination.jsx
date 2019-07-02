@@ -1,8 +1,8 @@
+import qs from 'qs'
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactPagination from 'rc-pagination'
 import { withRouter } from 'react-router-dom'
-import qs from 'qs'
 
 class Pagination extends React.Component {
 
@@ -45,6 +45,8 @@ class Pagination extends React.Component {
     return (
       <ReactPagination
         className="pagination"
+        showTitle={false}
+        hideOnSinglePage={true}
         total={this.props.totalItems}
         onChange={this.handlePageChange}
         current={this.props.currentPage}

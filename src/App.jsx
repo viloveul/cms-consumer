@@ -44,6 +44,11 @@ const mapDispatchToProps = dispatch => {
 
 class App extends React.Component {
 
+  state = {
+    menuOpened: false,
+    menukey: 'mymenu'
+  }
+
   componentDidMount = () => {
     this.props.readToken()
     this.props.loadOptions()
@@ -53,9 +58,25 @@ class App extends React.Component {
   }
 
   handleSearch = (v) => {
-    this.props.history.push({
-      pathname: '/',
-      search: '?search=' + v
+    this.props.history.push('/search/' + v)
+  }
+
+  handleOpenMenu = (v) => {
+    this.setState({
+      menuOpened: true
+    })
+  }
+
+  handleCloseMenu = (v) => {
+    this.setState({
+      menuOpened: false
+    })
+  }
+
+  handleCloseMenuShadow = (e) => {
+    this.handleCloseMenu(e)
+    this.setState({
+      menukey: 'menukey' + Math.random()
     })
   }
 
@@ -68,8 +89,12 @@ class App extends React.Component {
               <Menu
                 items={this.props.site.menus}
                 className="navmenu"
+                key={this.state.menukey}
+                openMenuHandler={this.handleOpenMenu}
+                closeMenuHandler={this.handleCloseMenu}
               >
               </Menu>
+              {this.state.menuOpened === true && <div className="navmenu-shadow" onClick={this.handleCloseMenuShadow}></div>}
             </div>
           </div>
           <div className="container">
@@ -90,6 +115,7 @@ class App extends React.Component {
             <Route exact path="/:year(\d{4,})" component={Blog} />
             <Route exact path="/:year(\d{4,})/:month(\d{1,2})" component={Blog} />
             <Route exact path="/:year(\d{4,})/:month(\d{1,2})/:day(\d{1,2})" component={Blog} />
+            <Route exact path="/search/:search" component={Blog} />
             <Route exact path="/:type/:slug\.html" component={Archive} />
             <Route exact path="/@:name" component={Author} />
             <Route path="/*" component={Singular} />
