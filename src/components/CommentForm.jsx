@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-class Comment extends React.Component {
+class CommentForm extends React.Component {
 
   static defaultProps = {
     postId: ''
@@ -104,4 +104,4 @@ class Comment extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comment)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm)

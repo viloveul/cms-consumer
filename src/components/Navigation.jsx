@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class Menu extends React.Component {
+class Navigation extends React.Component {
 
   state = {
     opened: -1
@@ -73,7 +73,7 @@ class Menu extends React.Component {
 
       if (items[a].children !== undefined && items[a].children.length !== 0 && this.state.opened === a) {
         item.push(
-          <Menu
+          <Navigation
             key={key}
             openMenuHandler={this.props.openMenuHandler}
             closeMenuHandler={this.props.closeMenuHandler}
@@ -82,7 +82,7 @@ class Menu extends React.Component {
             items={items[a].children}
             lvl={this.props.lvl + 1}
             closeAll={this.state.opened !== a}>
-          </Menu>
+          </Navigation>
         )
       }
       lists.push(
@@ -103,7 +103,7 @@ class Menu extends React.Component {
   }
 }
 
-Menu.propTypes = {
+Navigation.propTypes = {
   lvl: PropTypes.number,
   items: PropTypes.array,
   closeAll: PropTypes.bool,
@@ -112,4 +112,4 @@ Menu.propTypes = {
   collapseMenuHandler: PropTypes.func
 }
 
-export default Menu
+export default Navigation

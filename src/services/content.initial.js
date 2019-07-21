@@ -3,6 +3,7 @@ let dateFormated = curDate.getFullYear() + '-' + curDate.getMonth().toString().p
 let timeFormated = curDate.getHours().toString().padStart(2, '0') + ':' + curDate.getMinutes().toString().padStart(2, '0') + ':' + curDate.getSeconds().toString().padStart(2, '0')
 
 export default {
+  notify: '',
   posts: {
     meta: {
       order: 'id',

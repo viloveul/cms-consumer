@@ -33,7 +33,18 @@ const loadWidgets = () => {
   }
 }
 
+const initPagination = (payload) => {
+  return {
+    type: 'INIT_PAGINATION',
+    payload: {
+      page: payload.page || 1,
+      size: payload.size || 10
+    }
+  }
+}
+
 export default {
+  initPagination,
   loadOptions,
   loadMenus,
   loadWidgets

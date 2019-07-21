@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import MenuComponent from '@/components/Menu'
+import Navigation from '@/components/Navigation'
 
 class Menu extends React.Component {
 
@@ -13,8 +13,7 @@ class Menu extends React.Component {
       <div className="widget widget-menu">
         <div className="widget-title">Menu</div>
         <div className="widget-body">
-          <MenuComponent items={this.props.results} className="dor">
-          </MenuComponent>
+          <Navigation items={this.props.results} className="dor"></Navigation>
         </div>
       </div>
     )

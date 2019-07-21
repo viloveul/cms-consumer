@@ -1,14 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch, Link, withRouter } from 'react-router-dom'
+import qs from 'qs'
 
 import Blog from '@/pages/Blog'
 import Author from '@/pages/Author'
 import Archive from '@/pages/Archive'
 import Singular from '@/pages/Singular'
 
-import Menu from '@/components/Menu'
-import Search from '@/components/Search'
+import Navigation from '@/components/Navigation'
+import SearchForm from '@/components/SearchForm'
 
 import authAction from '@/services/auth.action'
 import siteAction from '@/services/site.action'
@@ -26,6 +27,9 @@ const mapDispatchToProps = dispatch => {
   return {
     readToken: () => {
       dispatch(authAction.readToken())
+    },
+    initPagination: (payload) => {
+      dispatch(siteAction.initPagination(payload))
     },
     loadOptions: () => {
       dispatch(siteAction.loadOptions())
@@ -47,6 +51,27 @@ class App extends React.Component {
   state = {
     menuOpened: false,
     menukey: 'mymenu'
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if (this.props.location !== prevProps.location) {
+      if (this.props.location.search.length > 1) {
+        let q = qs.parse(this.props.location.search.substr(1))
+        let pagination = {
+          page: this.props.site.pagination.page,
+          size: this.props.site.pagination.size
+        }
+        if (q.page !== undefined) {
+          pagination.page = parseInt(q.page)
+        }
+        if (q.size !== undefined) {
+          pagination.size = parseInt(q.size)
+        }
+        if (pagination.page !== this.props.site.pagination.page || pagination.size !== this.props.site.pagination.size) {
+          this.props.initPagination(pagination)
+        }
+      }
+    }
   }
 
   componentDidMount = () => {
@@ -86,14 +111,14 @@ class App extends React.Component {
         <header className="main-header">
           <div className="menu" rel="menu">
             <div className="container">
-              <Menu
+              <Navigation
                 items={this.props.site.menus}
                 className="navmenu"
                 key={this.state.menukey}
                 openMenuHandler={this.handleOpenMenu}
                 closeMenuHandler={this.handleCloseMenu}
               >
-              </Menu>
+              </Navigation>
               {this.state.menuOpened === true && <div className="navmenu-shadow" onClick={this.handleCloseMenuShadow}></div>}
             </div>
           </div>
@@ -105,7 +130,7 @@ class App extends React.Component {
               <p className="site-description" rel="description">{ this.props.site.options.description }</p>
             </div>
             <div className="col-sm-6">
-              <Search className="search" rel="search-form" handler={this.handleSearch}></Search>
+              <SearchForm className="search" rel="search-form" handler={this.handleSearch}></SearchForm>
             </div>
           </div>
         </header>

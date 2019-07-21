@@ -55,5 +55,9 @@ export default {
     }
   ],
   breadcrumbs: [],
-  errors: []
+  errors: [],
+  pagination: {
+    page: 1,
+    size: 10
+  }
 }

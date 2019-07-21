@@ -87,10 +87,10 @@ const fetchAuthorPostsFailed = (message) => {
 
 const fetchDetailPost = (payload) => {
   return (dispatch) => {
-    return http.get('/blog/detail/' + payload.slug, {
-      params: payload.params || {}
-    }).then(res => {
+    return http.get('/blog/detail/' + payload.slug)
+    .then(res => {
       dispatch(fetchDetailPostSuccess(res.data))
+      dispatch(fetchComments({postId: res.data.data.id, params: {...payload.params}}))
     }).catch(e => {
       dispatch(fetchDetailPostFailed(e))
     })

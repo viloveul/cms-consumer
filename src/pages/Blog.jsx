@@ -1,4 +1,3 @@
-import qs from 'qs'
 import React from 'react'
 import Post from '@/partials/Post'
 import { connect } from 'react-redux'
@@ -9,6 +8,7 @@ import contentAction from '@/services/content.action'
 
 const mapStateToProps = state => {
   return {
+    pagination: state.site.pagination,
     meta: state.content.posts.meta,
     data: state.content.posts.data
   }
@@ -24,31 +24,13 @@ const mapDispatchToProps = dispatch => {
 
 class Blog extends React.Component {
 
-  state = {
-    page: 1,
-    order: 'created_at',
-    sort: 'desc',
-    size: 10
-  }
-
   componentDidMount = () => {
-    let q = {}
-    let page = this.state.page
-
-    if (this.props.location.search.length > 1) {
-      q = qs.parse(this.props.location.search.substr(1))
-    }
-
-    if (q.page !== undefined) {
-      page = parseInt(q.page)
-      this.setState({page})
-    }
 
     let filters = {
-      page: page || 1,
-      order: this.state.order,
-      sort: this.state.sort,
-      size: this.state.size
+      page: this.props.pagination.page,
+      order: 'created_at',
+      sort: 'desc',
+      size: this.props.pagination.size
     }
 
     if (this.props.match.params.day !== undefined) {
@@ -74,8 +56,7 @@ class Blog extends React.Component {
             return <Post key={index} detail={post}></Post>
           })
         }
-
-        <Pagination currentPage={this.state.page} totalItems={this.props.meta.total} pageSize={this.state.size}></Pagination>
+        <Pagination currentPage={this.props.pagination.page} totalItems={this.props.meta.total} pageSize={this.props.pagination.size}></Pagination>
       </Layout>
     )
   }

@@ -1,73 +1,46 @@
-import qs from 'qs'
 import React from 'react'
 import Post from '@/partials/Post'
 import { connect } from 'react-redux'
 import Layout from '@/partials/Layout'
 import Comment from '@/partials/Comment'
-import CommentForm from '@/components/Comment'
+import CommentForm from '@/components/CommentForm'
 import Pagination from '@/components/Pagination'
 import contentAction from '@/services/content.action'
-import contentHelper from '@/services/content.helper'
 
 const mapStateToProps = state => {
   return {
+    pagination: state.site.pagination,
     post: state.content.post,
     data: state.content.comments.data,
-    meta: state.content.comments.meta
+    meta: state.content.comments.meta,
+    notify: state.content.notify
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchDetail: (slug) => {
-      dispatch(contentAction.fetchDetailPost({slug}))
-    },
-    fetchComments: (payload) => {
-      dispatch(contentAction.fetchComments(payload))
+    fetchDetail: (payload) => {
+      dispatch(contentAction.fetchDetailPost(payload))
     }
   }
 }
 
 class Singular extends React.Component {
 
-  state = {
-    page: 1,
-    order: 'created_at',
-    sort: 'desc'
-  }
-
   componentDidMount = () => {
-    let paths = this.props.location.pathname.split('/')
-    this.props.fetchDetail(paths.pop())
-  }
-
-  componentWillReceiveProps = (next) => {
-    if (this.props.post.id !== next.post.id && parseInt(next.post.comment_enabled) === 1 && contentHelper.isFormatPost(next.post) === true) {
-
-      let q = {}
-
-      let page = this.state.page
-
-      if (this.props.location.search.length > 1) {
-        q = qs.parse(this.props.location.search.substr(1))
-      }
-
-      if (q.page !== undefined) {
-        page = parseInt(q.page)
-        this.setState({page})
-      }
-
-      let filters = {
-        page: page || 1,
-        order: this.state.order,
-        sort: this.state.sort,
-        size: this.state.size
-      }
-      this.props.fetchComments({
-        postId: next.post.id,
-        params: {...filters}
-      })
+    let filters = {
+      page: this.props.pagination.page,
+      order: 'created_at',
+      sort: 'asc',
+      size: this.props.pagination.size
     }
+
+    let paths = this.props.location.pathname.split('/')
+
+    this.props.fetchDetail({
+      slug: paths.pop(),
+      params: {...filters}
+    })
   }
 
   render () {
@@ -81,7 +54,7 @@ class Singular extends React.Component {
           })
         }
         </div>
-        <Pagination currentPage={this.state.page} totalItems={this.props.meta.total} pageSize={this.state.size}></Pagination>
+        <Pagination currentPage={this.props.pagination.page} totalItems={this.props.meta.total} pageSize={this.props.pagination.size}></Pagination>
         <CommentForm postId={this.props.post.id}></CommentForm>
       </Layout>
     )

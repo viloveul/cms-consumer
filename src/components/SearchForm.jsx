@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class Search extends React.Component {
+class SearchForm extends React.Component {
 
   state = {
     searchValue: ''
@@ -38,9 +38,9 @@ class Search extends React.Component {
   }
 }
 
-Search.propTypes = {
+SearchForm.propTypes = {
   handler: PropTypes.func.isRequired,
   placeholder: PropTypes.string
 }
 
-export default Search
+export default SearchForm

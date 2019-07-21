@@ -17,6 +17,11 @@ export default (state = initial, action) => {
       	...state,
       	widgets: action.payload
       }
+    case 'INIT_PAGINATION':
+      return {
+        ...state,
+        pagination: action.payload
+      }
     default:
       return {...state}
   }
