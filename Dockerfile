@@ -39,8 +39,8 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
 # WORK
 RUN apt-get autoremove -y && \
     rm -rf /tmp/* && \
-    mkdir -p /viloveul/dist && \
-    touch /viloveul/dist/index.html
+    mkdir -p /viloveul/build && \
+    touch /viloveul/build/index.html
 
 EXPOSE 19913
 
