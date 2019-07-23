@@ -150,10 +150,7 @@ class App extends React.Component {
           <div className="container">
             <div className="credit">
               <p>
-                Powered by 
-                <a href="https://www.viloveul.com/" target="_blank" rel="noopener noreferrer">
-                  <abbr title="Viloveul">Viloveul.com</abbr>
-                </a>
+                Powered by <a href="https://www.viloveul.com/" target="_blank" rel="noopener noreferrer"><abbr title="Viloveul">Viloveul.com</abbr></a>
               </p>
             </div>
           </div>

@@ -25,7 +25,7 @@ class Pagination extends React.Component {
   }
 
   itemHandler = (current, type) => {
-    let str
+    let str = ''
     switch (type) {
       case 'prev':
         str = 'Prev'

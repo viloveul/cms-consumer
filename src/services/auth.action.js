@@ -2,6 +2,13 @@ import channel from '@/channel'
 import common from '@/common'
 import http from '@/http'
 
+const clearToken = () => {
+  return {
+    type: 'AUTH_CLEAR_TOKEN',
+    payload: {}
+  }
+}
+
 const readToken = () => {
   return (dispatch) => {
     let token = window.localStorage.getItem('viloveul:token') || null
@@ -14,7 +21,6 @@ const readToken = () => {
         let windowListener = (event) => {
           if (event.origin === common.getDashboardUrl()) {
             if (event.data.status === 'success' && event.data.value !== undefined) {
-              window.localStorage.setItem('viloveul:token', event.data.value)
               resolve(event.data.value)
             } else {
               reject('oops')
@@ -32,6 +38,7 @@ const readToken = () => {
     })
     req.catch(e => {
       dispatch(readTokenFailed())
+      dispatch(clearToken())
     })
     return req
   }
@@ -60,8 +67,8 @@ const fetchUserLogin = () => {
     return http.get('/user/me').then(res => {
       dispatch(fetchUserLoginSuccess(res.data))
     }).catch(err => {
-      window.localStorage.removeItem('viloveul:token')
       dispatch(fetchUserLoginFailed())
+      dispatch(clearToken())
     })
   }
 }
@@ -84,6 +91,7 @@ const fetchUserLoginFailed = () => {
 }
 
 export default {
+  clearToken,
   readToken,
   readTokenSuccess,
   readTokenFailed,

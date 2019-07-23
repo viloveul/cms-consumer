@@ -43,14 +43,7 @@ class PostContent extends React.Component {
         <header className="entry-header">
           <h2 className="entry-title">{ this.props.detail.title }</h2>
           <div className="posted">
-            Posted
-            <span className="by">
-              by
-              <Link to={contentHelper.getAuthorLink(this.props.detail.author)}>
-                { this.props.detail.author.name }
-              </Link>
-            </span>
-            at <span className="at">{ contentHelper.getPostFormatedDate(this.props.detail) }</span>
+            Posted <span className="by"> by <Link to={contentHelper.getAuthorLink(this.props.detail.author)}>{ this.props.detail.author.name }</Link></span> at <span className="at">{ contentHelper.getPostFormatedDate(this.props.detail) }</span>
           </div>
           {this.entryMeta()}
         </header>
