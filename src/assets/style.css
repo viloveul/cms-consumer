@@ -242,6 +242,7 @@ div.wrapper {
     text-decoration: none;
     color: #926126;
 }
+
 /**
  * CONTENT
  */
@@ -272,8 +273,10 @@ div.wrapper {
 .pagination * {
     /*border: none !important;*/
 }
-.pagination a {
+.pagination a,
+.pagination span {
     background: white;
+    cursor: pointer;
 }
 /**
  * ENTRY OF CONTENT

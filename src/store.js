@@ -1,17 +1,23 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import state from '@/services/state'
-import getters from '@/services/getters'
-import actions from '@/services/actions'
-import mutations from '@/services/mutations'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { routerReducer } from 'react-router-redux'
+import { createBrowserHistory } from 'history'
+import thunk from 'redux-thunk'
+import siteReducer from '@/services/site.reducer'
+import authReducer from '@/services/auth.reducer'
+import contentReducer from '@/services/content.reducer'
 
-Vue.use(Vuex)
+const history = createBrowserHistory()
 
-const store = new Vuex.Store({
-  state,
-  mutations,
-  getters,
-  actions
+const reducer = combineReducers({
+  site: siteReducer,
+  auth: authReducer,
+  content: contentReducer,
+  router: routerReducer
 })
+const store = createStore(reducer, applyMiddleware(thunk))
 
-export default store
+export {
+  history,
+  reducer,
+  store
+}
