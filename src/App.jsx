@@ -53,25 +53,31 @@ class App extends React.Component {
     menukey: 'mymenu'
   }
 
-  componentDidUpdate = (prevProps) => {
-    if (this.props.location !== prevProps.location) {
-      if (this.props.location.search.length > 1) {
-        let q = qs.parse(this.props.location.search.substr(1))
-        let pagination = {
-          page: this.props.site.pagination.page,
-          size: this.props.site.pagination.size
-        }
-        if (q.page !== undefined) {
-          pagination.page = parseInt(q.page)
-        }
-        if (q.size !== undefined) {
-          pagination.size = parseInt(q.size)
-        }
-        if (pagination.page !== this.props.site.pagination.page || pagination.size !== this.props.site.pagination.size) {
-          this.props.initPagination(pagination)
-        }
+  UNSAFE_componentWillUpdate = (nextProps, nextState) => {
+    if (nextProps.location.search !== this.props.location.search) {
+      this.setPagination(nextProps.location)
+    }
+  }
+
+  UNSAFE_componentWillMount = () => {
+    this.setPagination(this.props.location)
+  }
+
+  setPagination = (location) => {
+    let pagination = {
+      page: 1,
+      size: 10
+    }
+    if (location.search.length > 1) {
+      let q = qs.parse(location.search.substr(1))
+      if (q.page !== undefined) {
+        pagination.page = parseInt(q.page)
+      }
+      if (q.size !== undefined) {
+        pagination.size = parseInt(q.size)
       }
     }
+    this.props.initPagination(pagination)
   }
 
   componentDidMount = () => {
@@ -134,7 +140,7 @@ class App extends React.Component {
             </div>
           </div>
         </header>
-        <div className="main-content" key={this.props.location.pathname + this.props.location.search}>
+        <div className="main-content" key={this.props.location.pathname+this.props.location.search}>
           <Switch>
             <Route exact path="/" component={Blog} />
             <Route exact path="/:year(\d{4,})" component={Blog} />
